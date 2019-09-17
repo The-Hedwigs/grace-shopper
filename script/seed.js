@@ -18,41 +18,42 @@ async function seed() {
   const tomatoes = await Promise.all([
     Tomatoes.create({
       name: 'Spicy Boy',
-      imageUrl: '123',
+      imageUrl:
+        'https://www.chilipeppermadness.com/wp-content/uploads/2019/04/Carolina-Reaper-Pepper.jpg',
       price: 10.5,
       description: 'one spicy boi'
     }),
     Tomatoes.create({
       name: 'Tigerella',
-      iimageUrl:
+      imageUrl:
         'https://www.exotic-plants.de/auktionsbilder/Tomato_Tigerella1.jpg',
       price: 15.5,
       description: 'one feisty lady'
     }),
     Tomatoes.create({
       name: 'Mortgage Lifter',
-      iimageUrl:
+      imageUrl:
         'https://d1nw62gticy6e9.cloudfront.net/uploads/Mortgage_Lifter_Tomatoes.jpg',
       price: 10.5,
       description: 'one spicy girl'
     }),
     Tomatoes.create({
       name: 'Dark Galaxy',
-      iimageUrl:
+      imageUrl:
         'https://www.rareseeds.com/assets/1/14/dimregular/dark-galaxy-1.jpg',
       price: 20.15,
       description: 'One taste and you will be lost in space'
     }),
     Tomatoes.create({
       name: 'Lucid Gem',
-      iimageUrl:
+      imageUrl:
         'https://www.rareseeds.com/assets/1/14/dimregular/brad-gates-anthobicolor1.jpg',
       price: 17.12,
       description: 'Clearly the best'
     }),
     Tomatoes.create({
       name: 'Wagner Blue Green',
-      iimageUrl:
+      imageUrl:
         'https://www.rareseeds.com/assets/1/14/dimregular/tomato_wagner-blue-green1.jpg',
       price: 32.15,
       description: 'Wagner? Vagner? You decide'
