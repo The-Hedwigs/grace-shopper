@@ -9,7 +9,10 @@ const GET_ALL_TOMATOES = 'GET_ALL_TOMATOES'
 /**
  * INITIAL STATE
  */
-const productList = {}
+const initialTomatoState = {
+  tomatoes: [],
+  singleTomato: {}
+}
 
 /**
  * ACTION CREATORS
@@ -31,12 +34,15 @@ export const getAllTomatoesThunk = () => async dispatch => {
 /**
  * REDUCER
  */
-export default function tomatoReducer(state = productList, action) {
+export default function tomatoReducer(
+  tomatoState = initialTomatoState,
+  action
+) {
   switch (action.type) {
     case GET_ALL_TOMATOES:
-      return action.tomatoes
+      return {...tomatoState, tomatoes: action.tomatoes}
     default:
-      return state
+      return tomatoState
   }
 }
 
