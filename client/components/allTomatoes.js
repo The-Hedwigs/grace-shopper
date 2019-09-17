@@ -10,30 +10,29 @@ export class AllTomatoes extends React.Component {
 
   render() {
     return (
-      <div className='container'>
-        <h1 className='section-title'>Our Tomatoes</h1>
-          <div>
-            <div className='large-tomato-box'>
-              {this.props.tomatoes.map(tomato =>
-                (
-                  <div className='tomatodiv' key={tomato.id}>
-                    <img src={tomato.imageUrl} className='tomatoPic'/>
-                    <h4>{tomato.name}</h4>
-                    <h4>{tomato.price}</h4>
-                  </div>
-                ))}
-            </div>
+      <div className="container">
+        <h1 className="section-title">Our Tomatoes</h1>
+        <div>
+          <div className="large-tomato-box">
+            {this.props.tomatoes.map(tomato => (
+              <div className="tomatodiv" key={tomato.id}>
+                <img src={tomato.imageUrl} className="tomatoPic" />
+                <h4>{tomato.name}</h4>
+                <h4>{tomato.price}</h4>
+              </div>
+            ))}
           </div>
+        </div>
       </div>
     )
   }
 }
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ({
   tomatoes: state.tomatoes
 })
 
-const mapDispatchToProps = (dispatch) => ({
+const mapDispatchToProps = dispatch => ({
   getAllTomatoes: () => dispatch(getAllTomatoesThunk())
 })
 

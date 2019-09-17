@@ -31,7 +31,7 @@ export const getAllTomatoesThunk = () => async dispatch => {
 /**
  * REDUCER
  */
-export default function tomatoReducer(state = defaultUser, action) {
+export default function tomatoReducer(state = productList, action) {
   switch (action.type) {
     case GET_ALL_TOMATOES:
       return action.tomatoes
