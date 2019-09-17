@@ -10,8 +10,8 @@ const Tomatoes = db.define('tomatoes', {
     defaultValue: 'some image'
   },
   price: {
-    type: Sequelize.DECIMAL(10, 2),
-    defaultValue: 0
+    type: Sequelize.DECIMAL(100, 2),
+    defaultValue: 0.0
   },
   description: {
     type: Sequelize.TEXT
