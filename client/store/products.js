@@ -31,7 +31,7 @@ export const getAllProductsThunk = () => async dispatch => {
 /**
  * REDUCER
  */
-export default function(state = defaultUser, action) {
+export default function productsReducer(state = defaultUser, action) {
   switch (action.type) {
     case GET_ALL_PRODUCTS:
       return action.products
@@ -39,3 +39,5 @@ export default function(state = defaultUser, action) {
       return state
   }
 }
+
+//make sure you import your reducer into the index.js file
