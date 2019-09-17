@@ -7,7 +7,7 @@ import tomato from './tomato'
 
 const reducer = combineReducers({
   user: user,
-  tomatoes: tomato
+  tomatoState: tomato
 })
 const middleware = composeWithDevTools(
   applyMiddleware(thunkMiddleware, createLogger({collapsed: true}))
