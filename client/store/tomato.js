@@ -22,7 +22,6 @@ const getAllTomatoes = tomatoes => ({type: GET_ALL_TOMATOES, tomatoes})
 export const getAllTomatoesThunk = () => async dispatch => {
   try {
     const {data} = await axios.get('/api/tomatoes/')
-    console.log(data)
     dispatch(getAllTomatoes(data))
   } catch (err) {
     console.error(err)
