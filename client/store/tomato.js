@@ -21,8 +21,8 @@ const getAllTomatoes = tomatoes => ({type: GET_ALL_TOMATOES, tomatoes})
  */
 export const getAllTomatoesThunk = () => async dispatch => {
   try {
-    const tomatoes = await axios.get('/api/tomatoes/')
-    dispatch(getAllTomatoes(tomatoes))
+    const {data} = await axios.get('/api/tomatoes/')
+    dispatch(getAllTomatoes(data))
   } catch (err) {
     console.error(err)
   }
@@ -31,7 +31,7 @@ export const getAllTomatoesThunk = () => async dispatch => {
 /**
  * REDUCER
  */
-export default function tomatoReducer(state = defaultUser, action) {
+export default function tomatoReducer(state = productList, action) {
   switch (action.type) {
     case GET_ALL_TOMATOES:
       return action.tomatoes

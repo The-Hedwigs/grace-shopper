@@ -2,9 +2,9 @@ import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import {withRouter, Route, Switch} from 'react-router-dom'
 import PropTypes from 'prop-types'
-import {Login, Signup, AllTomatoes, Cart, Checkout} from './components'
+import {Login, Signup} from './components'
 import {me} from './store'
-
+import AllTomatoes from './components/AllTomatoes'
 /**
  * COMPONENT
  */
@@ -19,9 +19,9 @@ class Routes extends Component {
     return (
       <Switch>
         {/* Routes placed here are available to all visitors */}
-        <Route path="/allTomatoes" component={AllTomatoes} />
-        <Route path="/cart" component={Cart} />
-        <Route path="/checkout" component={Checkout} />
+        <Route exact path="/allTomatoes" component={AllTomatoes} />
+        {/* <Route path="/cart" component={Cart} /> */}
+        {/* <Route path="/checkout" component={Checkout} /> */}
         <Route path="/login" component={Login} />
         <Route path="/signup" component={Signup} />
         {isLoggedIn && (
