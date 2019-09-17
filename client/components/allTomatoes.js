@@ -3,12 +3,17 @@ import {connect} from 'react-redux'
 import {getAllTomatoesThunk} from '../store/tomato'
 import {Link} from 'react-router-dom'
 
-export class AllTomatoes extends React.Component {
+class AllTomatoes extends React.Component {
   componentDidMount() {
     this.props.getAllTomatoes()
   }
 
   render() {
+    console.log('state:', this.state)
+    console.log('props:', this.props)
+    // if (!this.state) {
+    //   return <div>loading...</div>
+    // }
     return (
       <div className="container">
         <h1 className="section-title">Our Tomatoes</h1>

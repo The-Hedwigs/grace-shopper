@@ -1,7 +1,7 @@
 'use strict'
 
 const db = require('../server/db')
-const {User} = require('../server/db/models')
+const {User, Tomatoes} = require('../server/db/models')
 
 async function seed() {
   await db.sync({force: true})
@@ -14,6 +14,50 @@ async function seed() {
 
   console.log(`seeded ${users.length} users`)
   console.log(`seeded successfully`)
+
+  const tomatoes = await Promise.all([
+    Tomatoes.create({
+      name: 'Spicy Boy',
+      imageUrl: '123',
+      price: 10.5,
+      description: 'one spicy boi'
+    }),
+    Tomatoes.create({
+      name: 'Tigerella',
+      iimageUrl:
+        'https://www.exotic-plants.de/auktionsbilder/Tomato_Tigerella1.jpg',
+      price: 15.5,
+      description: 'one feisty lady'
+    }),
+    Tomatoes.create({
+      name: 'Mortgage Lifter',
+      iimageUrl:
+        'https://d1nw62gticy6e9.cloudfront.net/uploads/Mortgage_Lifter_Tomatoes.jpg',
+      price: 10.5,
+      description: 'one spicy girl'
+    }),
+    Tomatoes.create({
+      name: 'Dark Galaxy',
+      iimageUrl:
+        'https://www.rareseeds.com/assets/1/14/dimregular/dark-galaxy-1.jpg',
+      price: 20.15,
+      description: 'One taste and you will be lost in space'
+    }),
+    Tomatoes.create({
+      name: 'Lucid Gem',
+      iimageUrl:
+        'https://www.rareseeds.com/assets/1/14/dimregular/brad-gates-anthobicolor1.jpg',
+      price: 17.12,
+      description: 'Clearly the best'
+    }),
+    Tomatoes.create({
+      name: 'Wagner Blue Green',
+      iimageUrl:
+        'https://www.rareseeds.com/assets/1/14/dimregular/tomato_wagner-blue-green1.jpg',
+      price: 32.15,
+      description: 'Wagner? Vagner? You decide'
+    })
+  ])
 }
 
 // We've separated the `seed` function from the `runSeed` function.
