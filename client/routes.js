@@ -10,7 +10,7 @@ import {
   Checkout
 } from './components'
 import {me} from './store'
-import AllTomatoes from './components/AllTomatoes'
+import AllTomatoes from './components/allTomatoes'
 /**
  * COMPONENT
  */
