@@ -24,7 +24,6 @@ describe('Tomatoes routes', () => {
         .expect(200)
 
       expect(res.body).to.be.an('array')
-      console.log(res.body)
       expect(res.body[0].name).to.be.equal('Domates')
     })
   })
