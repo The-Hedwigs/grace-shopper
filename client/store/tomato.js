@@ -38,32 +38,35 @@ export const getAllTomatoesThunk = () => async dispatch => {
 
 export const addToCartThunk = id => async dispatch => {
   try {
-    const session = await axios.get('/api/session')
-    const user = session.userId
-    let newOrder
-    if (!session.orderId) {
-      //check if there is a user on session
-      if (user) {
-        newOrder = await axios.post('/api/orders', {
-          userId: user
-        })
-      } else {
-        newOrder = await axios.post('/api/orders')
-      }
+    // const session = await axios.get('/api/session')
+    // const user = session.userId
+    // let newOrder
+    // if (!session.orderId) {
+    //   //check if there is a user on session
+    //   if (user) {
+    //     newOrder = await axios.post('/api/orders', {
+    //       userId: user
+    //     })
+    //   } else {
+    //     newOrder = await axios.post('/api/orders')
+    //   }
 
-      let orderId = newOrder.data.id
-      await axios.put('/api/session', {
-        orderId: orderId
-      })
-    }
+    //   let orderId = newOrder.data.id
+    //   await axios.put('/api/session', {
+    //     orderId: orderId
+    //   })
+    // }
 
-    //adds tomato to tomorder
-    //make sure to edit later that we need to check if tomato alreadt exists in order
-    const {data} = await axios.post('/api/tomorders', {
-      orderId: session.orderId,
-      tomatoId: id,
-      quantity: 1
-    })
+    // //adds tomato to tomorder
+    // //make sure to edit later that we need to check if tomato alreadt exists in order
+    // const {data} = await axios.post('/api/tomorders', {
+    //   orderId: session.orderId,
+    //   tomatoId: id,
+    //   quantity: 1
+    // })
+
+    const {data} = await axios.post('/api/orders', id)
+
     dispatch(addTomato(data))
   } catch (error) {
     console.error(error)

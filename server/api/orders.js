@@ -4,7 +4,19 @@ const Tomatoes = require('../db/models/order')
 
 router.post('/', async (req, res, next) => {
   try {
-    const newOrder = await Order.create({})
+    const newOrder = await Order.findOrCreate({
+      where: {
+        userId: req.session.userId
+      },
+      include: [
+        {
+          model: Tomorder,
+          as: 'orderItems',
+          where: {orderId: req.session.orderId}
+        }
+      ]
+    })
+
     res.json(newOrder)
   } catch (err) {
     next(err)
