@@ -26,6 +26,18 @@ const User = db.define('user', {
   },
   googleId: {
     type: Sequelize.STRING
+  },
+  shippingAddress: {
+    type: Sequelize.STRING
+  },
+  billingAddress: {
+    type: Sequelize.STRING
+  },
+  card: {
+    type: Sequelize.STRING,
+    get() {
+      return () => this.getDataValue('card')
+    }
   }
 })
 
@@ -53,6 +65,14 @@ User.encryptPassword = function(plainText, salt) {
     .digest('hex')
 }
 
+User.encryptCard = function(plainText, salt) {
+  return crypto
+    .createHash('RSA-SHA256')
+    .update(plainText)
+    .update(salt)
+    .digest('hex')
+}
+
 /**
  * hooks
  */
@@ -63,8 +83,16 @@ const setSaltAndPassword = user => {
   }
 }
 
+const setCard = user => {
+  if (user.changed('card')) {
+    user.card = User.encryptCard(user.card(), user.salt())
+  }
+}
+
 User.beforeCreate(setSaltAndPassword)
 User.beforeUpdate(setSaltAndPassword)
+User.beforeCreate(setCard)
+User.beforeUpdate(setCard)
 User.beforeBulkCreate(users => {
   users.forEach(setSaltAndPassword)
 })
