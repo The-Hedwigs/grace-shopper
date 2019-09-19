@@ -1,10 +1,21 @@
 const router = require('express').Router()
 const User = require('../db/models/user')
+const Order = require('../db/models/order')
 module.exports = router
 
 router.post('/login', async (req, res, next) => {
   try {
-    const user = await User.findOne({where: {email: req.body.email}})
+    //eager load the order with the user? 10
+    const user = await User.findOne({
+      where: {email: req.body.email},
+      include: [
+        {
+          model: Order,
+          as: 'OrderInfo',
+          where: {submitted: 0}
+        }
+      ]
+    })
     if (!user) {
       console.log('No such user found:', req.body.email)
       res.status(401).send('Wrong username and/or password')
@@ -38,8 +49,14 @@ router.post('/logout', (req, res) => {
   res.redirect('/')
 })
 
-router.get('/me', (req, res) => {
-  res.json(req.user)
+router.get('/me', async (req, res) => {
+  //updating router.get to receive an order that is unsubmitted and tied to that user id
+  //there should only be one
+  try {
+    res.json(req.user)
+  } catch (error) {
+    next(error)
+  }
 })
 
 router.use('/google', require('./google'))

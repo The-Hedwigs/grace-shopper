@@ -31,7 +31,7 @@ const getOrder = (orderItems, orderInfo) => ({
 
 export const getOrderThunk = () => async dispatch => {
   try {
-    const {data} = await axios.get('')
+    const {data} = await axios.get('/auth/me')
   } catch (err) {
     console.error(err)
   }
