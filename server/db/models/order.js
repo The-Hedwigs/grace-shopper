@@ -21,6 +21,9 @@ const Order = db.define('order', {
   },
   email: {
     type: Sequelize.STRING
+  },
+  userId: {
+    type: Sequelize.INTEGER
   }
 })
 

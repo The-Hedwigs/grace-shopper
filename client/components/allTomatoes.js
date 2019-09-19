@@ -1,6 +1,6 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import {getAllTomatoesThunk} from '../store/tomato'
+import {getAllTomatoesThunk, addToCartThunk} from '../store'
 import Tomatoes from './tomatoes'
 
 import {Link} from 'react-router-dom'
@@ -20,7 +20,10 @@ class AllTomatoes extends React.Component {
       <div className="container">
         <h1 className="section-title">Our Tomatoes</h1>
         {this.props.tomatoes ? (
-          <Tomatoes tomatoes={this.props.tomatoes} />
+          <Tomatoes
+            tomatoes={this.props.tomatoes}
+            addToCart={this.props.addToCart()}
+          />
         ) : (
           'No tomatoes here!'
         )}
@@ -35,7 +38,10 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => {
   // console.log(getAllTomatoesThunk())
-  return {getAllTomatoes: () => dispatch(getAllTomatoesThunk())}
+  return {
+    getAllTomatoes: () => dispatch(getAllTomatoesThunk()),
+    addToCart: id => dispatch(addToCartThunk(id))
+  }
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(AllTomatoes)

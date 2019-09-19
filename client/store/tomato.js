@@ -5,6 +5,7 @@ import axios from 'axios'
  * ACTION TYPES
  */
 const GET_ALL_TOMATOES = 'GET_ALL_TOMATOES'
+const ADD_TOMATO = 'ADD_TOMATO'
 
 /**
  * INITIAL STATE
@@ -18,6 +19,10 @@ const initialTomatoState = {
  * ACTION CREATORS
  */
 const getAllTomatoes = tomatoes => ({type: GET_ALL_TOMATOES, tomatoes})
+const addTomato = tomato => ({
+  type: ADD_TOMATO,
+  tomato
+})
 
 /**
  * THUNK CREATORS
@@ -28,6 +33,40 @@ export const getAllTomatoesThunk = () => async dispatch => {
     dispatch(getAllTomatoes(data))
   } catch (err) {
     console.error(err)
+  }
+}
+
+export const addToCartThunk = id => async dispatch => {
+  try {
+    const session = await axios.get('/api/session')
+    const user = session.userId
+    let newOrder
+    if (!session.orderId) {
+      //check if there is a user on session
+      if (user) {
+        newOrder = await axios.post('/api/orders', {
+          userId: user
+        })
+      } else {
+        newOrder = await axios.post('/api/orders')
+      }
+
+      let orderId = newOrder.data.id
+      await axios.put('/api/session', {
+        orderId: orderId
+      })
+    }
+
+    //adds tomato to tomorder
+    //make sure to edit later that we need to check if tomato alreadt exists in order
+    const {data} = await axios.post('/api/tomorders', {
+      orderId: session.orderId,
+      tomatoId: id,
+      quantity: 1
+    })
+    dispatch(addTomato(data))
+  } catch (error) {
+    console.error(error)
   }
 }
 

@@ -51,7 +51,6 @@ const mapDispatch = dispatch => {
   return {
     loadInitialData() {
       dispatch(me())
-      // dispatch(getOrderThunk())
     }
   }
 }

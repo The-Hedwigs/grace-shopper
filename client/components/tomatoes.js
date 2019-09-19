@@ -9,6 +9,9 @@ export default function Tomatoes(props) {
             <img src={tomato.imageUrl} className="tomatoPic" />
             <h4>{tomato.name}</h4>
             <h4>{tomato.price}</h4>
+            <button type="button" onClick={() => props.addToCart(tomato.id)}>
+              🍅
+            </button>
           </div>
         ))}
       </div>
