@@ -2,8 +2,10 @@ import React from 'react'
 import {connect} from 'react-redux'
 import {getAllTomatoesThunk, addToCartThunk} from '../store/tomato'
 import Tomatoes from './tomatoes'
+//import {Link} from 'react-router-dom'
 
-class AllTomatoes extends React.Component {
+
+export class AllTomatoes extends React.Component {
   constructor(props) {
     super(props)
   }
