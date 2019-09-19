@@ -1,11 +1,11 @@
 const router = require('express').Router()
 const Order = require('../db/models/order')
-const Tomorder = require('../db/models/tomorder')
-const Tomatoes = require('../db/models/order')
+const TomOrder = require('../db/models/tomorder')
 
 router.post('/', async (req, res, next) => {
   // Because we've added an orderId to session if the user is logged in and has an unsubmitted order, we want to check the order table to see if there is a matching order already. If there is no orderId on sessions, we will create a new order. If there is a signed in user, the new order will assign the userid on session to the new order. Regardless of if this is a new order or an existing order, we will then add the new tomato/order pairing to the tomorder table
   try {
+    console.log(req.body.id)
     let orderId = req.session.orderId
     let userId = req.session.userId
     if (!orderId) {
@@ -16,15 +16,15 @@ router.post('/', async (req, res, next) => {
         await newOrder.update({userId: userId})
       }
     }
-    // place this order into the tomorder table, if the tomato order pairing already exists, increment it, otherwise, it's 1 tomato
-    let order = await Tomorder.findOne({
+    // place this order into the tomorder table, if the tomato order pairing already exists, increment quantity, otherwise, it's 1 tomato
+    let order = await TomOrder.findOne({
       where: {
         orderId: orderId,
         tomatoId: req.body.id
       }
     })
     if (!order) {
-      order = await Tomorder.create({
+      order = await TomOrder.create({
         orderId: orderId,
         tomatoId: req.body.id,
         quantity: 1

@@ -5,10 +5,10 @@ const Order = db.define('order', {
   //inform if order is in cart or submitted
   submitted: {
     type: Sequelize.BOOLEAN,
-    defaultValue: 0
+    defaultValue: false
   },
   total: {
-    type: Sequelize.DECIMAL(100, 2)
+    type: Sequelize.INTEGER
   },
   shipping: {
     type: Sequelize.TEXT
