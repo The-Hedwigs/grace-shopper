@@ -1,22 +1,16 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import PropTypes from 'prop-types'
+import {updatepref} from '../store'
 
 const PaymentForm = props => {
   const {name, handleSubmit, displayName, error, isLoggedIn} = props
 
   return (
     <div>
-      <form onSubmit={handleSubmit} name={name}>
+      <form onSubmit={evt => handleSubmit(evt, props.user)} name={name}>
         {!isLoggedIn ? (
           <div>
-            <div>
-              <label htmlFor="fullName">
-                <small>Name</small>
-              </label>
-              <input name="fullName" type="text" />
-            </div>
-            <br />
             <div>
               <label htmlFor="email">
                 <small>Email</small>
@@ -31,61 +25,61 @@ const PaymentForm = props => {
           <div>Shipping Address</div>
           <br />
           <div>
-            <label htmlFor="addressOne">
+            <label htmlFor="sAddressOne">
               <small>Address line 1</small>
             </label>
-            <input name="addressOne" type="text" />
+            <input name="sAddressOne" type="text" />
           </div>
           <br />
           <div>
-            <label htmlFor="addressTwo">
+            <label htmlFor="sAddressTwo">
               <small>Address line 2</small>
             </label>
-            <input name="addressTwo" type="text" />
+            <input name="sAddressTwo" type="text" />
           </div>
           <br />
           <div>
-            <label htmlFor="state">
+            <label htmlFor="sState">
               <small>State</small>
             </label>
-            <input name="state" type="text" />
+            <input name="sState" type="text" />
           </div>
           <br />
           <div>
-            <label htmlFor="zip">
+            <label htmlFor="sZip">
               <small>Zip code</small>
             </label>
-            <input name="zip" type="text" pattern="\d{5}([ \-]\d{4})?" />
+            <input name="sZip" type="text" pattern="\d{5}([ \-]\d{4})?" />
           </div>
           <br />
           <div>Billing Address</div>
           <br />
           <div>
-            <label htmlFor="addressOne">
+            <label htmlFor="bAddressOne">
               <small>Address line 1</small>
             </label>
-            <input name="addressOne" type="text" />
+            <input name="bAddressOne" type="text" />
           </div>
           <br />
           <div>
-            <label htmlFor="addressTwo">
+            <label htmlFor="bAddressTwo">
               <small>Address line 2</small>
             </label>
-            <input name="addressTwo" type="text" />
+            <input name="bAddressTwo" type="text" />
           </div>
           <br />
           <div>
-            <label htmlFor="state">
+            <label htmlFor="bState">
               <small>State</small>
             </label>
-            <input name="state" type="text" />
+            <input name="bState" type="text" />
           </div>
           <br />
           <div>
-            <label htmlFor="zip">
+            <label htmlFor="bZip">
               <small>Zip code</small>
             </label>
-            <input name="zip" type="text" pattern="\d{5}([ \-]\d{4})?" />
+            <input name="bZip" type="text" pattern="\d{5}([ \-]\d{4})?" />
           </div>
           <br />
           <div>Payment Information</div>
@@ -138,29 +132,81 @@ const mapOrder = state => {
   }
 }
 
-const mapDispatch = dispatch => {
+const mapDispatchPref = dispatch => {
   return {
-    handleSubmit(evt) {
+    handleSubmit(evt, user) {
       evt.preventDefault()
       const formName = evt.target.name
-      const name = evt.target.fullName.value
-      const email = evt.target.email.value
-      const address =
-        evt.target.addressOne.value +
+      const email = evt.target.email ? evt.target.email.value : user.email
+      const shippingAddress = (
+        evt.target.sAddressOne.value +
         ' ' +
-        evt.target.addressTwo.value +
+        evt.target.sAddressTwo.value +
         ' ' +
-        evt.target.state.value +
+        evt.target.sState.value +
         ' ' +
-        evt.target.zip.value
+        evt.target.sZip.value
+      ).replace(/\s+/g, ' ')
+      const billingAddress = (
+        evt.target.bAddressOne.value +
+        ' ' +
+        evt.target.bAddressTwo.value +
+        ' ' +
+        evt.target.bState.value +
+        ' ' +
+        evt.target.bZip.value
+      ).replace(/\s+/g, ' ')
+      const card =
+        evt.target.cardnumber.value +
+        evt.target.expdate.value +
+        evt.target.cvc.value
+      const info = {
+        shippingAddress: shippingAddress,
+        billingAddress: billingAddress,
+        card: card
+      }
+      dispatch(updatepref(user.id, info))
     }
   }
 }
 
-export const UpdatePreferences = connect(mapPreferences, mapDispatch)(
+const mapDispatchCheck = dispatch => {
+  return {
+    handleSubmit(evt, user) {
+      evt.preventDefault()
+      const email = evt.target.email ? evt.target.email.value : user.email
+      const shippingAddress = (
+        evt.target.sAddressOne.value +
+        ' ' +
+        evt.target.sAddressTwo.value +
+        ' ' +
+        evt.target.sState.value +
+        ' ' +
+        evt.target.sZip.value
+      ).replace(/\s+/g, ' ')
+      const billingAddress = (
+        evt.target.bAddressOne.value +
+        ' ' +
+        evt.target.bAddressTwo.value +
+        ' ' +
+        evt.target.bState.value +
+        ' ' +
+        evt.target.bZip.value
+      ).replace(/\s+/g, ' ')
+      const info = {
+        email: email,
+        shippingAddress: shippingAddress,
+        billingAddress: billingAddress
+      }
+      //dispatch(updatepref(user.id, info))
+    }
+  }
+}
+
+export const UpdatePreferences = connect(mapPreferences, mapDispatchPref)(
   PaymentForm
 )
-export const Checkout = connect(mapOrder, mapDispatch)(PaymentForm)
+export const Checkout = connect(mapOrder, mapDispatchCheck)(PaymentForm)
 
 PaymentForm.propTypes = {
   name: PropTypes.string.isRequired,
