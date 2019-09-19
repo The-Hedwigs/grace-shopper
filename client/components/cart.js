@@ -3,33 +3,42 @@ import {connect} from 'react-redux'
 // import thunks from '../store/cart'
 
 class Cart extends React.Component {
-  constructor() {
-    super()
+  constructor(props) {
+    super(props)
   }
+
+  //mounting our existing order onto the cart
   componentDidMount() {
     this.props.getOrder()
   }
 
+  //function to run add quantity thunk
   handleAdd = id => {
     this.props.addToQuant()
   }
 
+  //function to run subtract quantity thunk
   handleSubtract = id => {
     this.props.subtractQuant()
   }
 
   render() {
     return (
-      <div className="large-tomato-box">
-        {this.props.tomatoes.map(tomato => (
-          <div className="tomatodiv" key={tomato.id}>
-            <img src={tomato.imageUrl} className="tomatoPic" />
-            <h4>{tomato.name}</h4>
-            <h4>{tomato.price}</h4>
+      /*
+      component for displaying items
+      - to update:
+          - still working on names for db, update props names as necesarry
+      */
+      <div className="cart-item-box">
+        {this.props.orderItems.map(item => (
+          <div className="itemdiv" key={item.id}>
+            <img src={item.imageUrl} className="itemPic" />
+            <h4>{item.name}</h4>
+            <h4>{item.price}</h4>
             <form>
               <label>Quantity</label>
               <div className="quantity">
-                {this.props.quantity}
+                {this.props.orderInfo.quantity}
                 <Link to="/cart">
                   <i
                     className="**inserticon**"
@@ -61,7 +70,8 @@ class Cart extends React.Component {
 }
 
 const mapStateToProps = state => ({
-  order: state.order
+  orderInfo: state.orderInfo,
+  orderItems: state.orderItems
 })
 
 const mapDispatchToProps = dispatch => ({
