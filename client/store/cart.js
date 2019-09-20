@@ -63,8 +63,8 @@ export default function cartReducer(cartState = initialCartState, action) {
     case GET_ORDER:
       return {
         ...cartState,
-        orderItems: action.orderData.tomato,
-        orderInfo: action.orderInfo
+        orderItems: action.orderData.tomatoes,
+        orderInfo: action.orderData
       }
     default:
       return cartState
