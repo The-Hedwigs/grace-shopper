@@ -1,6 +1,7 @@
 import React from 'react'
 import {connect} from 'react-redux'
-// import thunks from '../store/cart'
+
+import {getOrderThunk} from '../store/cart'
 
 class Cart extends React.Component {
   constructor(props) {
@@ -14,23 +15,25 @@ class Cart extends React.Component {
 
   //function to run add quantity thunk
   handleAdd = id => {
-    this.props.addToQuant()
+    this.props.addToQuant(id)
   }
 
   //function to run subtract quantity thunk
   handleSubtract = id => {
-    this.props.subtractQuant()
+    this.props.subtractQuant(id)
   }
 
   render() {
+    console.log('this.props', this.props)
     return (
       /*
       component for displaying items
       - to update:
           - still working on names for db, update props names as necesarry
       */
+
       <div className="cart-item-box">
-        {this.props.orderItems.map(item => (
+        {/* {this.props.orderItems.map(item => (
           <div className="itemdiv" key={item.id}>
             <img src={item.imageUrl} className="itemPic" />
             <h4>{item.name}</h4>
@@ -60,10 +63,12 @@ class Cart extends React.Component {
                   </i>
                 </Link>
               </div>
-              {/* <div className='total'>{this.props.total}</div> */}
+              <div className='total'>{this.props.total}</div>
             </form>
           </div>
-        ))}
+        ))} */}
+
+        <h3>Test?</h3>
       </div>
     )
   }
@@ -75,9 +80,9 @@ const mapStateToProps = state => ({
 })
 
 const mapDispatchToProps = dispatch => ({
-  getOrder: () => dispatch(getOrderThunk()),
-  addToQuant: () => dispatch(addQuantThunk()),
-  subtractQuant: () => dispatch(subtractQuantThunk())
+  getOrder: () => dispatch(getOrderThunk())
+  // addToQuant: () => dispatch(addQuantThunk()),
+  // subtractQuant: () => dispatch(subtractQuantThunk())
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Cart)

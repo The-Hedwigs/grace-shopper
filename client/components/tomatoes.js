@@ -12,7 +12,7 @@ export default function Tomatoes(props) {
             <h4>{tomato.name}</h4>
             <h4>{tomato.price}</h4>
             <button type="button" onClick={() => props.addToCart(tomato.id)}>
-              🍅
+              🍅+
             </button>
           </div>
         ))}
