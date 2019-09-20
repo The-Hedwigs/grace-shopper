@@ -2,6 +2,22 @@ const router = require('express').Router()
 const Order = require('../db/models/order')
 const TomOrder = require('../db/models/tomorder')
 
+router.get('/', async (req, res, next) => {
+  try {
+    const allOrders = await Order.findAll({
+      include: [
+        {
+          model: TomOrder,
+          as: 'orderItems'
+        }
+      ]
+    })
+    res.json(allOrders)
+  } catch (error) {
+    next(error)
+  }
+})
+
 router.post('/', async (req, res, next) => {
   // Because we've added an orderId to session if the user is logged in and has an unsubmitted order, we want to check the order table to see if there is a matching order already. If there is no orderId on sessions, we will create a new order. If there is a signed in user, the new order will assign the userid on session to the new order. Regardless of if this is a new order or an existing order, we will then add the new tomato/order pairing to the tomorder table
   try {
