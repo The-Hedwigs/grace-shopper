@@ -1,18 +1,33 @@
 const router = require('express').Router()
 const Order = require('../db/models/order')
 const TomOrder = require('../db/models/tomorder')
+const Tomatoes = require('../db/models/tomatoes')
 
 router.get('/', async (req, res, next) => {
   try {
     const allOrders = await Order.findAll({
       include: [
         {
-          model: TomOrder,
-          as: 'orderItems'
+          model: Tomatoes,
+          through: {attributes: ['userId, orderId', 'id', 'quantity']}
         }
       ]
     })
     res.json(allOrders)
+  } catch (error) {
+    next(error)
+  }
+})
+
+router.get('/:orderId', async (req, res, next) => {
+  try {
+    const order = await TomOrder.findAll({
+      where: {
+        orderId: req.params.orderId
+      },
+      include: [{model: Tomatoes}]
+    })
+    res.json(order)
   } catch (error) {
     next(error)
   }

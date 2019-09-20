@@ -1,6 +1,7 @@
 import React from 'react'
 
 export default function Tomatoes(props) {
+  console.log('props:', props)
   return (
     <div>
       <div className="large-tomato-box">

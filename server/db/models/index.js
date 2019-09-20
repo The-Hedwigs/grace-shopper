@@ -23,6 +23,9 @@ Order.belongsTo(User)
 Tomatoes.belongsToMany(Order, {through: TomOrder})
 Order.belongsToMany(Tomatoes, {through: TomOrder})
 
+TomOrder.belongsTo(Order)
+TomOrder.belongsTo(Tomatoes)
+
 module.exports = {
   User,
   Tomatoes,

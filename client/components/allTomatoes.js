@@ -4,7 +4,6 @@ import {getAllTomatoesThunk, addToCartThunk} from '../store/tomato'
 import Tomatoes from './tomatoes'
 //import {Link} from 'react-router-dom'
 
-
 export class AllTomatoes extends React.Component {
   constructor(props) {
     super(props)
@@ -21,7 +20,7 @@ export class AllTomatoes extends React.Component {
         {this.props.tomatoes ? (
           <Tomatoes
             tomatoes={this.props.tomatoes}
-            addToCart={this.props.addToCart()}
+            addToCart={id => this.props.addToCart(id)}
           />
         ) : (
           'No tomatoes here!'
