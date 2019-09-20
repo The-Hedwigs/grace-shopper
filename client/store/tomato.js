@@ -5,6 +5,7 @@ import axios from 'axios'
  * ACTION TYPES
  */
 const GET_ALL_TOMATOES = 'GET_ALL_TOMATOES'
+const ADD_TOMATO = 'ADD_TOMATO'
 
 /**
  * INITIAL STATE
@@ -18,6 +19,10 @@ const initialTomatoState = {
  * ACTION CREATORS
  */
 const getAllTomatoes = tomatoes => ({type: GET_ALL_TOMATOES, tomatoes})
+const addTomato = tomato => ({
+  type: ADD_TOMATO,
+  tomato
+})
 
 /**
  * THUNK CREATORS
@@ -28,6 +33,16 @@ export const getAllTomatoesThunk = () => async dispatch => {
     dispatch(getAllTomatoes(data))
   } catch (err) {
     console.error(err)
+  }
+}
+
+export const addToCartThunk = id => async dispatch => {
+  try {
+    console.log('thunk id:', id)
+    const {data} = await axios.post('/api/orders', {id})
+    dispatch(addTomato(data))
+  } catch (error) {
+    console.error(error)
   }
 }
 

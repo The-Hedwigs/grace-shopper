@@ -1,6 +1,7 @@
 import React from 'react'
 
 export default function Tomatoes(props) {
+  console.log('props:', props)
   return (
     <div className="container">
       <div className="row">
@@ -13,6 +14,9 @@ export default function Tomatoes(props) {
               <div className="card-body">
                 <h5 className="card-title text-center">{tomato.name}</h5>
                 <div className="card-text text-center">{tomato.price}</div>
+                <button type="button" onClick={() => props.addToCart(tomato.id)}>
+                  🍅
+                </button>
               </div>
             </div>
           </div>
