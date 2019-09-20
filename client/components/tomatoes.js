@@ -3,17 +3,22 @@ import React from 'react'
 export default function Tomatoes(props) {
   console.log('props:', props)
   return (
-    <div>
-      <div className="large-tomato-box">
+    <div className="container">
+      <div className="row">
         {props.tomatoes.map(tomato => (
-          <div className="tomatodiv" key={tomato.id}>
-            {console.log(tomato)}
-            <img src={tomato.imageUrl} className="tomatoPic" />
-            <h4>{tomato.name}</h4>
-            <h4>{tomato.price}</h4>
-            <button type="button" onClick={() => props.addToCart(tomato.id)}>
-              🍅+
-            </button>
+          <div className="col-md-4" key={tomato.id}>
+            <div className="card">
+              <div className="wrapper">
+                <img src={tomato.imageUrl} className="card-img-top img-fluid" />
+              </div>
+              <div className="card-body">
+                <h5 className="card-title text-center">{tomato.name}</h5>
+                <div className="card-text text-center">{tomato.price}</div>
+                <button type="button" onClick={() => props.addToCart(tomato.id)}>
+                  🍅&#271A
+                </button>
+              </div>
+            </div>
           </div>
         ))}
       </div>
