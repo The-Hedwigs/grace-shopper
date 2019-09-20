@@ -6,30 +6,48 @@ import {logout} from '../store'
 
 const Navbar = ({handleClick, isLoggedIn}) => (
   <div>
-    <h1>TO-MA-TO OR NOT T0-MA-TO?</h1>
-    <nav>
-      <div>
-        <Link to="/allTomatoes">All Tomatoes</Link>
+    <nav className="navbar navbar-light bg-light">
+      <h1 className="navbar-brand">
+        tom-a-to <br /> tom-ah-to
+      </h1>
+      <div className="nav-item active">
+        <Link className="nav-link text-muted" to="/allTomatoes">
+          All Tomatoes
+        </Link>
       </div>
-      <div>
-        <Link to="/cart">Cart</Link>
+      <div className="nav-item active">
+        <Link className="nav-link text-muted" to="/cart">
+          Cart
+        </Link>
       </div>
-      <div>
-        <Link to="/checkout">Checkout</Link>
+      <div className="nav-item active">
+        <Link className="nav-link text-muted" to="/checkout">
+          Checkout
+        </Link>
       </div>
       {isLoggedIn ? (
-        <div>
+        <div className="nav-item active">
           {/* The navbar will show these links after you log in */}
-          <Link to="/accountSettings">My Account</Link>
+          <Link className="nav-link text-muted" to="/accountSettings">
+            My Account
+          </Link>
           <a href="#" onClick={handleClick}>
             Logout
           </a>
         </div>
       ) : (
         <div>
-          {/* The navbar will show these links before you log in */}
-          <Link to="/login">Login</Link>
-          <Link to="/signup">Sign Up</Link>
+          <div className="nav-item active text-right">
+            {/* The navbar will show these links before you log in */}
+            <Link className="nav-link text-muted" to="/login">
+              Login
+            </Link>
+          </div>
+          <div className="nav-item active text-right">
+            <Link className="nav-link text-muted" to="/signup">
+              Sign Up
+            </Link>
+          </div>
         </div>
       )}
     </nav>
