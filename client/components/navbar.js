@@ -6,27 +6,29 @@ import {logout} from '../store'
 
 const Navbar = ({handleClick, isLoggedIn}) => (
   <div>
-    <nav className="navbar navbar-expand-lg navbar-light bg-light">
-      <h1 className="display-6">GRACE SHOPPER</h1>
+    <nav className="navbar navbar-light bg-light">
+      <h1 className="navbar-brand">
+        tom-a-to <br /> tom-ah-to
+      </h1>
       <div className="nav-item active">
-        <Link className="nav-link" to="/allTomatoes">
+        <Link className="nav-link text-muted" to="/allTomatoes">
           All Tomatoes
         </Link>
       </div>
       <div className="nav-item active">
-        <Link className="nav-link" to="/cart">
+        <Link className="nav-link text-muted" to="/cart">
           Cart
         </Link>
       </div>
       <div className="nav-item active">
-        <Link className="nav-link" to="/checkout">
+        <Link className="nav-link text-muted" to="/checkout">
           Checkout
         </Link>
       </div>
       {isLoggedIn ? (
         <div className="nav-item active">
           {/* The navbar will show these links after you log in */}
-          <Link className="nav-link" to="/accountSettings">
+          <Link className="nav-link text-muted" to="/accountSettings">
             My Account
           </Link>
           <a href="#" onClick={handleClick}>
@@ -35,14 +37,14 @@ const Navbar = ({handleClick, isLoggedIn}) => (
         </div>
       ) : (
         <div>
-          <div className="nav-item active">
+          <div className="nav-item active text-right">
             {/* The navbar will show these links before you log in */}
-            <Link className="nav-link" to="/login">
+            <Link className="nav-link text-muted" to="/login">
               Login
             </Link>
           </div>
-          <div className="nav-item active">
-            <Link className="nav-link" to="/signup">
+          <div className="nav-item active text-right">
+            <Link className="nav-link text-muted" to="/signup">
               Sign Up
             </Link>
           </div>
