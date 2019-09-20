@@ -6,30 +6,46 @@ import {logout} from '../store'
 
 const Navbar = ({handleClick, isLoggedIn}) => (
   <div>
-    <h1>GRACE SHOPPER</h1>
-    <nav>
-      <div>
-        <Link to="/allTomatoes">All Tomatoes</Link>
+    <nav className="navbar navbar-expand-lg navbar-light bg-light">
+      <h1 className="display-6">GRACE SHOPPER</h1>
+      <div className="nav-item active">
+        <Link className="nav-link" to="/allTomatoes">
+          All Tomatoes
+        </Link>
       </div>
-      <div>
-        <Link to="/cart">Cart</Link>
+      <div className="nav-item active">
+        <Link className="nav-link" to="/cart">
+          Cart
+        </Link>
       </div>
-      <div>
-        <Link to="/checkout">Checkout</Link>
+      <div className="nav-item active">
+        <Link className="nav-link" to="/checkout">
+          Checkout
+        </Link>
       </div>
       {isLoggedIn ? (
-        <div>
+        <div className="nav-item active">
           {/* The navbar will show these links after you log in */}
-          <Link to="/accountSettings">My Account</Link>
+          <Link className="nav-link" to="/accountSettings">
+            My Account
+          </Link>
           <a href="#" onClick={handleClick}>
             Logout
           </a>
         </div>
       ) : (
         <div>
-          {/* The navbar will show these links before you log in */}
-          <Link to="/login">Login</Link>
-          <Link to="/signup">Sign Up</Link>
+          <div className="nav-item active">
+            {/* The navbar will show these links before you log in */}
+            <Link className="nav-link" to="/login">
+              Login
+            </Link>
+          </div>
+          <div className="nav-item active">
+            <Link className="nav-link" to="/signup">
+              Sign Up
+            </Link>
+          </div>
         </div>
       )}
     </nav>
