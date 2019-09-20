@@ -54,8 +54,6 @@ router.post('/logout', (req, res) => {
 })
 
 router.get('/me', async (req, res) => {
-  //updating router.get to receive an order that is unsubmitted and tied to that user id
-  //there should only be one
   try {
     res.json(req.user)
   } catch (error) {

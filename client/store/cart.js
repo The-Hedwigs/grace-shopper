@@ -19,10 +19,9 @@ const initialCartState = {
 /**
  * ACTION CREATORS
  */
-const getOrder = (orderItems, orderInfo) => ({
+const getOrder = orderData => ({
   type: GET_ORDER,
-  orderItems,
-  orderInfo
+  orderData
 })
 
 /**
@@ -31,7 +30,10 @@ const getOrder = (orderItems, orderInfo) => ({
 
 export const getOrderThunk = () => async dispatch => {
   try {
-    const {data} = await axios.get('/api/orders')
+    //thunk pulls data of current cart
+    const {data} = await axios.get(`/api/orders/current`)
+    console.log('cart store / getOrderThunk / data:', data)
+    dispatch(getOrder(data))
   } catch (err) {
     console.error(err)
   }
@@ -61,7 +63,7 @@ export default function cartReducer(cartState = initialCartState, action) {
     case GET_ORDER:
       return {
         ...cartState,
-        orderItems: action.orderItems,
+        orderItems: action.orderData.tomato,
         orderInfo: action.orderInfo
       }
     default:
