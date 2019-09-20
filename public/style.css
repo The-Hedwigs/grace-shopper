@@ -19,3 +19,24 @@ form div {
   margin: 1em;
   display: inline-block;
 }
+
+.wrapper {
+  position: relative;
+  overflow: hidden;
+}
+
+.wrapper:after {
+  content: '';
+  display: block;
+  padding-top: 100%;
+}
+
+.wrapper img {
+  width: auto;
+  height: 100%;
+  max-width: none;
+  position: absolute;
+  left: 50%;
+  top: 0;
+  transform: translateX(-50%);
+}
