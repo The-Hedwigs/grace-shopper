@@ -22,12 +22,6 @@ router.get('/', async (req, res, next) => {
 //router for current cart depending on if it exists. if nothing is inside, return 404 (TODO!!!!)
 router.get('/current', async (req, res, next) => {
   try {
-    // const order = await TomOrder.findAll({
-    //   where: {
-    //     orderId: req.session.orderId
-    //   },
-    //   include: [{model: Order}, {model: Tomatoes}]
-    // })
     const order = await Order.findOne({
       where: {
         id: req.session.orderId

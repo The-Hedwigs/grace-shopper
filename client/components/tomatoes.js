@@ -15,7 +15,7 @@ export default function Tomatoes(props) {
                 <h5 className="card-title text-center">{tomato.name}</h5>
                 <div className="card-text text-center">{tomato.price}</div>
                 <button type="button" onClick={() => props.addToCart(tomato.id)}>
-                  🍅
+                  🍅&#271A
                 </button>
               </div>
             </div>

@@ -9,7 +9,7 @@ import cart from './cart'
 const reducer = combineReducers({
   user: user,
   tomatoState: tomato,
-  cart: cart
+  cartState: cart
 })
 const middleware = composeWithDevTools(
   applyMiddleware(thunkMiddleware, createLogger({collapsed: true}))
