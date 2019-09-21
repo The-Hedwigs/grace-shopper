@@ -21,12 +21,19 @@ describe('User routes', () => {
     })
 
     it('GET /api/users', async () => {
-      const res = await request(app)
-        .get('/api/users')
-        .expect(200)
+      // it('shows all users for logged in admin users', async () => {
 
-      expect(res.body).to.be.an('array')
-      expect(res.body[0].email).to.be.equal(codysEmail)
+      // });
+      // it('redirects the user to login page for un-logged in users', async () => {
+
+      // });
+      it('redirects the user to home page for logged in users', async () => {
+        const res = await request(app)
+          .get('/api/users')
+          .expect(302)
+        expect(res.body).to.be.an('array')
+        expect(res.body[0].email).to.be.equal(codysEmail)
+      })
     })
   }) // end describe('/api/users')
 }) // end describe('User routes')

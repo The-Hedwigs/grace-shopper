@@ -3,7 +3,7 @@ const {User} = require('../db/models')
 module.exports = router
 
 function requireAdminStatus(req, res, callback) {
-  if (req.user.isAdmin) {
+  if (req.user && req.user.isAdmin) {
     callback()
   } else {
     res.redirect('/home')
