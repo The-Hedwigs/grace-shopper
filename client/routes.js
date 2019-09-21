@@ -12,6 +12,8 @@ import {
 import {me} from './store'
 import AllTomatoes from './components/allTomatoes'
 import SingleTomato from './components/singleTomato'
+import Cart from './components/cart'
+
 /**
  * COMPONENT
  */
@@ -34,7 +36,7 @@ class Routes extends Component {
             <Checkout {...props} isLoggedIn={isLoggedIn} user={user} />
           )}
         />
-        {/* <Route path="/cart" component={Cart} /> */}
+        <Route path="/cart" component={Cart} />
         {/* <Route path="/checkout" component={Checkout} /> */}
         <Route path="/login" component={Login} />
         <Route path="/signup" component={Signup} />

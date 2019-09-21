@@ -20,11 +20,12 @@ export default function Tomatoes(props) {
                   {tomato.name}
                 </Link>
                 <div className="card-text text-center">{tomato.price}</div>
+
                 <button
                   type="button"
                   onClick={() => props.addToCart(tomato.id)}
                 >
-                  🍅
+                  🍅&#10133
                 </button>
               </div>
             </div>
