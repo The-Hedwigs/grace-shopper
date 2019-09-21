@@ -6,6 +6,7 @@ import axios from 'axios'
  */
 const GET_ALL_TOMATOES = 'GET_ALL_TOMATOES'
 const ADD_TOMATO = 'ADD_TOMATO'
+const GET_SINGLE_TOMATO = 'GET_SINGLE_TOMATO'
 
 /**
  * INITIAL STATE
@@ -24,6 +25,10 @@ const addTomato = tomato => ({
   tomato
 })
 
+const getSingleTomato = tomato => ({
+  type: GET_SINGLE_TOMATO,
+  tomato
+})
 /**
  * THUNK CREATORS
  */
@@ -31,6 +36,15 @@ export const getAllTomatoesThunk = () => async dispatch => {
   try {
     const {data} = await axios.get('/api/tomatoes/')
     dispatch(getAllTomatoes(data))
+  } catch (err) {
+    console.error(err)
+  }
+}
+
+export const getSingleTomatoThunk = tomatoId => async dispatch => {
+  try {
+    const {data} = await axios.get(`/api/tomatoes/${tomatoId}`)
+    dispatch(getSingleTomato(data))
   } catch (err) {
     console.error(err)
   }
@@ -56,6 +70,8 @@ export default function tomatoReducer(
   switch (action.type) {
     case GET_ALL_TOMATOES:
       return {...tomatoState, tomatoes: action.tomatoes}
+    case GET_SINGLE_TOMATO:
+      return {...tomatoState, singleTomato: action.tomato}
     default:
       return tomatoState
   }
