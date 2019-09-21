@@ -2,14 +2,14 @@ import React from 'react'
 import {connect} from 'react-redux'
 import {getSingleTomatoThunk, addToCartThunk} from '../store/tomato'
 
-export class singleTomato extends React.Component {
+export class SingleTomato extends React.Component {
   componentDidMount() {
     const tomatoId = this.props.match.params.tomatoId
     this.props.getSingleTomato(tomatoId)
   }
   render() {
     return (
-      <div>
+      <div className="container">
         <div className="card">
           <div className="wrapper">
             <img
@@ -39,7 +39,7 @@ export class singleTomato extends React.Component {
 }
 
 const mapStateToProps = state => ({
-  tomato: state.singleTomato
+  tomato: state.tomatoState.singleTomato
 })
 
 const mapDispatchToProps = dispatch => ({
@@ -47,4 +47,4 @@ const mapDispatchToProps = dispatch => ({
   addToCart: tomatoId => dispatch(addToCartThunk(tomatoId))
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(singleTomato)
+export default connect(mapStateToProps, mapDispatchToProps)(SingleTomato)

@@ -11,7 +11,7 @@ import {
 } from './components'
 import {me} from './store'
 import AllTomatoes from './components/allTomatoes'
-
+import SingleTomato from './components/singleTomato'
 /**
  * COMPONENT
  */
@@ -25,7 +25,8 @@ class Routes extends Component {
     return (
       <Switch>
         {/* Routes placed here are available to all visitors */}
-        <Route exact path="/allTomatoes" component={AllTomatoes} />
+        <Route exact path="/tomatoes" component={AllTomatoes} />
+        <Route exact path="/tomatoes/:tomatoId" component={SingleTomato} />
         <Route
           exact
           path="/checkout"

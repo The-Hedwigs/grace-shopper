@@ -11,7 +11,7 @@ const Navbar = ({handleClick, isLoggedIn}) => (
         tom-a-to <br /> tom-ah-to
       </h1>
       <div className="nav-item active">
-        <Link className="nav-link text-muted" to="/allTomatoes">
+        <Link className="nav-link text-muted" to="/tomatoes">
           All Tomatoes
         </Link>
       </div>

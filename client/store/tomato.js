@@ -70,6 +70,8 @@ export default function tomatoReducer(
   switch (action.type) {
     case GET_ALL_TOMATOES:
       return {...tomatoState, tomatoes: action.tomatoes}
+    case GET_SINGLE_TOMATO:
+      return {...tomatoState, singleTomato: action.tomato}
     default:
       return tomatoState
   }
