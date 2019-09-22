@@ -27,6 +27,9 @@ class Cart extends React.Component {
   render() {
     console.log('this.props', this.props)
     console.log('STATE!!!', this.state)
+    // const total = this.props.orderItems.reduce(
+    //   (acc, val) => acc + val.price * val.tomorder.quantity
+    // )
     return (
       /*
       component for displaying items
@@ -39,7 +42,9 @@ class Cart extends React.Component {
           <div className="itemdiv" key={item.id}>
             <img src={item.imageUrl} className="itemPic" />
             <h4>{item.name}</h4>
-            <h4>{item.price}</h4>
+            <h4>Price: ${item.price}</h4>
+            <h4>Quantity: {item.tomorder.quantity}</h4>
+
             {/* <form>
               <label>Quantity</label>
               <div className="quantity">
@@ -69,6 +74,11 @@ class Cart extends React.Component {
             </form> */}
           </div>
         ))}
+        {/* <h2>
+          Order Total: ${this.props.orderItems.reduce(
+            (acc, val) => acc + val.price * val.tomorder.quantity
+          )}
+        </h2> */}
       </div>
     )
   }
