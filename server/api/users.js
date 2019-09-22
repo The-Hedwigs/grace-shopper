@@ -27,8 +27,6 @@ router.get('/', async (req, res, next) => {
 })
 
 router.get('/:id', (req, res, next) => {
-  //console.log("getting user with id");
-  //console.log(req.user);
   requireAdminStatus(req, res, async () => {
     //I created a function checks that user`s admin situation, acoordingly returns the data or redirects unauthorized.
     try {
