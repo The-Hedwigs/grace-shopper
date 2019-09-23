@@ -3,35 +3,46 @@ const Order = require('../db/models/order')
 const TomOrder = require('../db/models/tomorder')
 const Tomatoes = require('../db/models/tomatoes')
 
-router.get('/', async (req, res, next) => {
-  try {
-    const allOrders = await Order.findAll({
-      include: [
-        {
-          model: Tomatoes,
-          through: {attributes: ['userId, orderId', 'id', 'quantity']}
-        }
-      ]
-    })
-    res.json(allOrders)
-  } catch (error) {
-    next(error)
+function requireAdminStatus(req, res, callback) {
+  if (req.user && req.user.isAdmin) {
+    callback()
+  } else {
+    res.redirect('/tomatoes')
   }
+}
+router.get('/', async (req, res, next) => {
+  requireAdminStatus(req, res, async () => {
+    try {
+      const allOrders = await Order.findAll({
+        include: [
+          {
+            model: Tomatoes,
+            through: {attributes: ['userId, orderId', 'id', 'quantity']}
+          }
+        ]
+      })
+      res.json(allOrders)
+    } catch (error) {
+      next(error)
+    }
+  })
 })
 
 //router for current cart depending on if it exists. if nothing is inside, return 404 (TODO!!!!)
 router.get('/current', async (req, res, next) => {
-  try {
-    const order = await Order.findOne({
-      where: {
-        id: req.session.orderId
-      },
-      include: [{model: Tomatoes}]
-    })
-    res.json(order)
-  } catch (error) {
-    next(error)
-  }
+  requireAdminStatus(req, res, async () => {
+    try {
+      const order = await Order.findOne({
+        where: {
+          id: req.session.orderId
+        },
+        include: [{model: Tomatoes}]
+      })
+      res.json(order)
+    } catch (error) {
+      next(error)
+    }
+  })
 })
 
 router.post('/current', async (req, res, next) => {
@@ -65,6 +76,18 @@ router.put('/current', async (req, res, next) => {
       },
       include: [{model: Tomatoes}]
     })
+
+    //if there isn't an order in our session, then create a new order
+    //else, get the currentOrder
+    if (!currentOrder) {
+      currentOrder = await Order.create()
+      orderId = currentOrder.id
+      req.session.orderId = orderId
+    }
+    //if a user is logged in, then add the user id to that order
+    if (userId) {
+      await currentOrder.update({userId: userId})
+    }
 
     // check to see if the order-tomato pairing already exists in our database
     let tomorder = await TomOrder.findOne({
