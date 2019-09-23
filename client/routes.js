@@ -13,6 +13,7 @@ import {me} from './store'
 import AllTomatoes from './components/allTomatoes'
 import SingleTomato from './components/singleTomato'
 import Cart from './components/cart'
+import {setOrderThunk} from './store/cart'
 
 /**
  * COMPONENT
@@ -80,6 +81,7 @@ const mapDispatch = dispatch => {
   return {
     loadInitialData() {
       dispatch(me())
+      dispatch(setOrderThunk())
     }
   }
 }
