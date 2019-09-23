@@ -141,7 +141,7 @@ router.post('/', async (req, res, next) => {
     // })
     // await currentOrder.update({total: total})
 
-    res.json(tomorder)
+    res.json(currentOrder)
   } catch (err) {
     next(err)
   }
