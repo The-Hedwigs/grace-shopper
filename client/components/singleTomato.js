@@ -10,7 +10,7 @@ export class SingleTomato extends React.Component {
   render() {
     return (
       <div className="container">
-        <div className="card">
+        <div className="card text-center w-50">
           <div className="wrapper">
             <img
               src={this.props.tomato.imageUrl}
@@ -18,18 +18,15 @@ export class SingleTomato extends React.Component {
             />
           </div>
           <div className="card-body">
-            <h5 className="card-title text-center">{this.props.tomato.name}</h5>
-            <div className="card-text text-center">
-              {this.props.tomato.description}
-            </div>
-            <div className="card-text text-center">
-              {this.props.tomato.price}
-            </div>
+            <h5 className="card-title">{this.props.tomato.name}</h5>
+            <div className="card-text">{this.props.tomato.description}</div>
+            <div className="card-text">{this.props.tomato.price}</div>
             <button
               type="button"
-              onClick={() => this.props.addToCart(this.props.tomato.id)}
+              className="btn btn-outline-dark btn-block"
+              onClick={() => props.addToCart(tomato.id)}
             >
-              🍅
+              Add 🍅 to Cart
             </button>
           </div>
         </div>

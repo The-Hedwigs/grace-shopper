@@ -13,8 +13,11 @@ export default function Tomatoes(props) {
                 <img src={tomato.imageUrl} className="card-img-top img-fluid" />
               </div>
               <div className="card-body">
-                <Link className="nav-link text-muted" to={`/tomatoes/${tomato.id}`>
-                <h5 className="card-title">{tomato.name}</h5>
+                <Link
+                  className="card-link font-weight-bold text-danger"
+                  to={`/tomatoes/${tomato.id}`}
+                >
+                  {tomato.name}
                 </Link>
                 <div className="card-subtitle mb-2 text-muted">
                   {tomato.description}

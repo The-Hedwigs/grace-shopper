@@ -76,30 +76,28 @@ router.post('/', async (req, res, next) => {
     const tomato = await Tomatoes.findByPk(req.body.id)
     let orderId = req.session.orderId
     let userId
+    let currentOrder
 
     //check to see if a user is logged in:
     if (req.session.passport) {
       userId = req.session.passport.user
     }
 
-    // let currentOrder = await Order.findByPk(orderId)
-
-    let currentOrder = await Order.findOne({
-      where: {
-        id: req.session.orderId
-      },
-      include: [{model: Tomatoes}]
-    })
-
     //if there isn't an order in our session, then create a new order
     //else, get the currentOrder
-    if (!currentOrder) {
+    if (!req.session.orderId) {
       // console.log('NO ORDER ID, creating new order')
       currentOrder = await Order.create()
       orderId = currentOrder.id
       req.session.orderId = orderId
       // console.log('session:', req.session)
-    }
+    } else
+      currentOrder = await Order.findOne({
+        where: {
+          id: req.session.orderId
+        },
+        include: [{model: Tomatoes}]
+      })
     //if a user is logged in, then add the user id to that order
     if (userId) {
       await currentOrder.update({userId: userId})
