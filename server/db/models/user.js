@@ -38,6 +38,10 @@ const User = db.define('user', {
     get() {
       return () => this.getDataValue('card')
     }
+  },
+  isAdmin: {
+    type: Sequelize.BOOLEAN,
+    defaultValue: false
   }
 })
 

@@ -10,4 +10,18 @@ router.get('/', async (req, res, next) => {
     next(err)
   }
 })
+
+router.get('/:tomatoId', async (req, res, next) => {
+  try {
+    const tomato = await Tomatoes.findOne({
+      where: {
+        id: req.params.tomatoId
+      }
+    })
+    res.json(tomato)
+  } catch (err) {
+    next(err)
+  }
+})
+
 module.exports = router
