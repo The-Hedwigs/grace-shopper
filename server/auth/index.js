@@ -54,6 +54,7 @@ router.post('/logout', (req, res) => {
 
 router.get('/me', async (req, res) => {
   try {
+    console.log(req.session)
     res.json(req.user)
   } catch (error) {
     next(error)
