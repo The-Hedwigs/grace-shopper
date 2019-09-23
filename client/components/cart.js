@@ -1,12 +1,12 @@
 import React from 'react'
 import {connect} from 'react-redux'
-
 import {getOrderThunk} from '../store/cart'
+import {addToCartThunk} from '../store/tomato'
 
 class Cart extends React.Component {
-  constructor(props) {
-    super(props)
-  }
+  // constructor(props) {
+  //   super(props)
+  // }
 
   //mounting our existing order onto the cart
   componentDidMount() {
@@ -14,10 +14,10 @@ class Cart extends React.Component {
     console.log('state after mount:', this.state)
   }
 
-  // //function to run add quantity thunk
-  // handleAdd = id => {
-  //   this.props.addToQuant(id)
-  // }
+  //function to run add quantity thunk
+  handleAdd = id => {
+    this.props.addToCart(id)
+  }
 
   // //function to run subtract quantity thunk
   // handleSubtract = id => {
@@ -27,7 +27,7 @@ class Cart extends React.Component {
   render() {
     return (
       <div className="container">
-        <h2>Order Total: ${this.props.orderInfo.total}</h2>
+        <h2>Order Total: ${this.props.orderInfo.total}.00</h2>
         {/* the order total may need to be moved */}
         <div className="row">
           {this.props.orderItems.map(item => (
@@ -62,34 +62,6 @@ class Cart extends React.Component {
                   </div>
                 </div>
               </div>
-
-              {/* <form>
-              <label>Quantity</label>
-              <div className="quantity">
-                {item.tomorder.quantity}
-                <Link to="/cart">
-                  <i
-                    className="add"
-                    onClick={() => {
-                      this.handleAdd(item.id)
-                    }}
-                  >
-                    arrow_drop_up
-                  </i>
-                </Link>
-                <Link to="/cart">
-                  <i
-                    className="subtract"
-                    onClick={() => {
-                      this.handleSubtract(item.id)
-                    }}
-                  >
-                    arrow_drop_down
-                  </i>
-                </Link>
-              </div>
-              <div className="total">{this.props.total}</div>
-            </form> */}
             </div>
           ))}
         </div>
@@ -104,8 +76,8 @@ const mapStateToProps = state => ({
 })
 
 const mapDispatchToProps = dispatch => ({
-  getOrder: () => dispatch(getOrderThunk())
-  // addToQuant: () => dispatch(addQuantThunk()),
+  getOrder: () => dispatch(getOrderThunk()),
+  addToCart: id => dispatch(addToCartThunk(id))
   // subtractQuant: () => dispatch(subtractQuantThunk())
 })
 

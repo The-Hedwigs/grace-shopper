@@ -41,7 +41,7 @@ export const getOrderThunk = () => async dispatch => {
 
 export const addQuantThunk = id => async dispatch => {
   try {
-    console.log('cart store / addQuantThunk / data:', data)
+    // console.log('cart store / getOrderThunk / data:', data)
   } catch (err) {
     console.error(err)
   }
@@ -61,19 +61,6 @@ export const subtractQuantThunk = id => async dispatch => {
 export default function cartReducer(cartState = initialCartState, action) {
   switch (action.type) {
     case GET_ORDER:
-      let total = 0
-      action.orderData.tomatoes.forEach(tomato => {
-        total = total + tomato.price * tomato.tomorder.quantity
-        console.log(
-          'total:',
-          total,
-          ' price:',
-          tomato.price,
-          ' quant:',
-          tomato.tomorder.quantity
-        )
-      })
-      action.orderData.total = total.toFixed(2)
       return {
         ...cartState,
         orderItems: action.orderData.tomatoes,
