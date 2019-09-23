@@ -8,7 +8,8 @@ const Order = db.define('order', {
     defaultValue: false
   },
   total: {
-    type: Sequelize.INTEGER
+    type: Sequelize.INTEGER,
+    defaultValue: 0
   },
   shipping: {
     type: Sequelize.TEXT

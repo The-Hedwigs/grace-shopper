@@ -61,6 +61,21 @@ export const subtractQuantThunk = id => async dispatch => {
 export default function cartReducer(cartState = initialCartState, action) {
   switch (action.type) {
     case GET_ORDER:
+      let total = 0
+      console.log(total)
+      action.orderData.tomatoes.forEach(tomato => {
+        total = total + tomato.price * tomato.tomorder.quantity
+        console.log(
+          'total:',
+          total,
+          ' price:',
+          tomato.price,
+          ' quant:',
+          tomato.tomorder.quantity
+        )
+      })
+      console.log(total)
+      action.orderData.total = total.toFixed(2)
       return {
         ...cartState,
         orderItems: action.orderData.tomatoes,

@@ -74,11 +74,7 @@ class Cart extends React.Component {
             </form> */}
           </div>
         ))}
-        {/* <h2>
-          Order Total: ${this.props.orderItems.reduce(
-            (acc, val) => acc + val.price * val.tomorder.quantity
-          )}
-        </h2> */}
+        <h2>Order Total: ${this.props.orderInfo.total}</h2>
       </div>
     )
   }
