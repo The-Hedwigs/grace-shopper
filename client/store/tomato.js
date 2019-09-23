@@ -38,8 +38,8 @@ export const getAllTomatoesThunk = () => async dispatch => {
 
 export const addToCartThunk = id => async dispatch => {
   try {
-    console.log('thunk id:', id)
-    const {data} = await axios.post('/api/orders', {id})
+    // console.log('thunk id:', id)
+    const {data} = await axios.post('/api/orders/current', {id})
     dispatch(addTomato(data))
   } catch (error) {
     console.error(error)

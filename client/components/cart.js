@@ -25,33 +25,51 @@ class Cart extends React.Component {
   // }
 
   render() {
-    console.log('this.props', this.props)
-    console.log('STATE!!!', this.state)
-    // const total = this.props.orderItems.reduce(
-    //   (acc, val) => acc + val.price * val.tomorder.quantity
-    // )
     return (
-      /*
-      component for displaying items
-      - to update:
-          - still working on names for db, update props names as necesarry
-      */
+      <div className="container">
+        <h2>Order Total: ${this.props.orderInfo.total}</h2>
+        {/* the order total may need to be moved */}
+        <div className="row">
+          {this.props.orderItems.map(item => (
+            <div className="col-md-4" key={item.id}>
+              <div className="card text-center">
+                <div className="wrapper">
+                  <img src={item.imageUrl} className="card-img-top img-fluid" />
+                </div>
+                <div className="card-body">
+                  <h5 className="card-title">{item.name}</h5>
+                  <div className="card-text">
+                    <p>Unit Price: ${item.price}</p>
+                  </div>
+                  <div className="card-text">
+                    <p>Quantity: {item.tomorder.quantity}</p>
+                  </div>
+                  <div className="btn-group btn-block" role="group">
+                    <button
+                      type="button"
+                      className="btn btn-secondary btn-light"
+                      onClick={() => this.handleAdd(item.id)}
+                    >
+                      Add 🍅
+                    </button>
+                    <button
+                      type="button"
+                      className="btn btn-secondary btn-dark"
+                      onClick={() => this.handleSubtrack(item.id)}
+                    >
+                      Remove 🍅
+                    </button>
+                  </div>
+                </div>
+              </div>
 
-      <div className="cart-item-box">
-        {this.props.orderItems.map(item => (
-          <div className="itemdiv" key={item.id}>
-            <img src={item.imageUrl} className="itemPic" />
-            <h4>{item.name}</h4>
-            <h4>Price: ${item.price}</h4>
-            <h4>Quantity: {item.tomorder.quantity}</h4>
-
-            {/* <form>
+              {/* <form>
               <label>Quantity</label>
               <div className="quantity">
-                {this.props.orderInfo.total}
+                {item.tomorder.quantity}
                 <Link to="/cart">
                   <i
-                    className="**inserticon**"
+                    className="add"
                     onClick={() => {
                       this.handleAdd(item.id)
                     }}
@@ -61,7 +79,7 @@ class Cart extends React.Component {
                 </Link>
                 <Link to="/cart">
                   <i
-                    className="**inserticon**"
+                    className="subtract"
                     onClick={() => {
                       this.handleSubtract(item.id)
                     }}
@@ -72,9 +90,9 @@ class Cart extends React.Component {
               </div>
               <div className="total">{this.props.total}</div>
             </form> */}
-          </div>
-        ))}
-        <h2>Order Total: ${this.props.orderInfo.total}</h2>
+            </div>
+          ))}
+        </div>
       </div>
     )
   }

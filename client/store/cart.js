@@ -32,7 +32,7 @@ export const getOrderThunk = () => async dispatch => {
   try {
     //thunk pulls data of current cart
     const {data} = await axios.get(`/api/orders/current`)
-    console.log('cart store / getOrderThunk / data:', data)
+    // console.log('cart store / getOrderThunk / data:', data)
     dispatch(getOrder(data))
   } catch (err) {
     console.error(err)
@@ -41,7 +41,7 @@ export const getOrderThunk = () => async dispatch => {
 
 export const addQuantThunk = id => async dispatch => {
   try {
-    console.log('to do')
+    console.log('cart store / addQuantThunk / data:', data)
   } catch (err) {
     console.error(err)
   }
@@ -62,7 +62,6 @@ export default function cartReducer(cartState = initialCartState, action) {
   switch (action.type) {
     case GET_ORDER:
       let total = 0
-      console.log(total)
       action.orderData.tomatoes.forEach(tomato => {
         total = total + tomato.price * tomato.tomorder.quantity
         console.log(
@@ -74,7 +73,6 @@ export default function cartReducer(cartState = initialCartState, action) {
           tomato.tomorder.quantity
         )
       })
-      console.log(total)
       action.orderData.total = total.toFixed(2)
       return {
         ...cartState,
