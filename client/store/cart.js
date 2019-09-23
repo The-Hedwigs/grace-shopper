@@ -38,7 +38,6 @@ export const getOrderThunk = () => async dispatch => {
   try {
     //thunk pulls data of current cart
     const {data} = await axios.get(`/api/orders/current`)
-    // console.log('cart store / getOrderThunk / data:', data)
     dispatch(getOrder(data))
   } catch (err) {
     console.error(err)
@@ -67,7 +66,7 @@ export default function cartReducer(cartState = initialCartState, action) {
         orderInfo: action.orderData
       }
     case SUB_QUANTITY:
-      console.log(action.orderData)
+      // console.log(action.orderData)
       return {
         ...cartState,
         orderItems: action.orderData.tomatoes,
