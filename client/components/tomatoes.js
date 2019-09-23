@@ -25,7 +25,7 @@ export default function Tomatoes(props) {
                   type="button"
                   onClick={() => props.addToCart(tomato.id)}
                 >
-                  🍅&#10133
+                  🍅➕
                 </button>
               </div>
             </div>
