@@ -11,7 +11,6 @@ router.post('/login', async (req, res, next) => {
       include: [
         {
           model: Order,
-          as: 'orderInfo',
           where: {submitted: 0}
         }
       ]

@@ -1,11 +1,12 @@
 import React from 'react'
 import {connect} from 'react-redux'
-
-import {getOrderThunk} from '../store/cart'
+import {getOrderThunk, subQuantThunk} from '../store/cart'
+import {addToCartThunk} from '../store/tomato'
 
 class Cart extends React.Component {
   constructor(props) {
     super(props)
+    // this.handleSubmit = this.handleSubmit.bind(this)
   }
 
   //mounting our existing order onto the cart
@@ -14,61 +15,58 @@ class Cart extends React.Component {
     console.log('state after mount:', this.state)
   }
 
-  // //function to run add quantity thunk
-  // handleAdd = id => {
-  //   this.props.addToQuant(id)
-  // }
+  //function to run add quantity thunk
+  handleSub = id => {
+    // this.props.addToCart(id)
+    this.props.subQuant(id)
+  }
 
-  // //function to run subtract quantity thunk
-  // handleSubtract = id => {
-  //   this.props.subtractQuant(id)
+  // handleSubmit(event) {
+  //   event.preventDefault()
+  //   // this.props.updateOrder(this.state)
   // }
 
   render() {
-    console.log('this.props', this.props)
-    console.log('STATE!!!', this.state)
     return (
-      /*
-      component for displaying items
-      - to update:
-          - still working on names for db, update props names as necesarry
-      */
-
-      <div className="cart-item-box">
-        {this.props.orderItems.map(item => (
-          <div className="itemdiv" key={item.id}>
-            <img src={item.imageUrl} className="itemPic" />
-            <h4>{item.name}</h4>
-            <h4>{item.price}</h4>
-            {/* <form>
-              <label>Quantity</label>
-              <div className="quantity">
-                {this.props.orderInfo.total}
-                <Link to="/cart">
-                  <i
-                    className="**inserticon**"
-                    onClick={() => {
-                      this.handleAdd(item.id)
-                    }}
-                  >
-                    arrow_drop_up
-                  </i>
-                </Link>
-                <Link to="/cart">
-                  <i
-                    className="**inserticon**"
-                    onClick={() => {
-                      this.handleSubtract(item.id)
-                    }}
-                  >
-                    arrow_drop_down
-                  </i>
-                </Link>
+      <div className="container">
+        <h2>Order Total: ${this.props.orderInfo.total}.00</h2>
+        {/* the order total may need to be moved */}
+        <div className="row">
+          {this.props.orderItems.map(item => (
+            <div className="col-md-4" key={item.id}>
+              <div className="card text-center">
+                <div className="wrapper">
+                  <img src={item.imageUrl} className="card-img-top img-fluid" />
+                </div>
+                <div className="card-body">
+                  <h5 className="card-title">{item.name}</h5>
+                  <div className="card-text">
+                    <p>Unit Price: ${item.price}</p>
+                  </div>
+                  <div className="card-text">
+                    <p>Quantity: {item.tomorder.quantity}</p>
+                  </div>
+                  <div className="btn-group btn-block" role="group">
+                    {/* <button
+                      type="button"
+                      className="btn btn-secondary btn-light"
+                      onClick={() => this.handleAdd(item.id)}
+                    >
+                      Add 🍅
+                    </button> */}
+                    <button
+                      type="button"
+                      className="btn btn-secondary btn-dark"
+                      onClick={() => this.handleSub(item.id)}
+                    >
+                      Remove 🍅
+                    </button>
+                  </div>
+                </div>
               </div>
-              <div className="total">{this.props.total}</div>
-            </form> */}
-          </div>
-        ))}
+            </div>
+          ))}
+        </div>
       </div>
     )
   }
@@ -80,9 +78,8 @@ const mapStateToProps = state => ({
 })
 
 const mapDispatchToProps = dispatch => ({
-  getOrder: () => dispatch(getOrderThunk())
-  // addToQuant: () => dispatch(addQuantThunk()),
-  // subtractQuant: () => dispatch(subtractQuantThunk())
+  getOrder: () => dispatch(getOrderThunk()),
+  subQuant: id => dispatch(subQuantThunk(id))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Cart)

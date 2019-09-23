@@ -19,42 +19,42 @@ async function seed() {
       name: 'Spicy Boy',
       imageUrl:
         'https://www.chilipeppermadness.com/wp-content/uploads/2019/04/Carolina-Reaper-Pepper.jpg',
-      price: 10.5,
+      price: 10,
       description: 'one spicy boi'
     }),
     Tomatoes.create({
       name: 'Tigerella',
       imageUrl:
         'https://www.exotic-plants.de/auktionsbilder/Tomato_Tigerella1.jpg',
-      price: 15.5,
+      price: 15,
       description: 'one feisty lady'
     }),
     Tomatoes.create({
       name: 'Mortgage Lifter',
       imageUrl:
         'https://d1nw62gticy6e9.cloudfront.net/uploads/Mortgage_Lifter_Tomatoes.jpg',
-      price: 10.5,
+      price: 11,
       description: 'one spicy girl'
     }),
     Tomatoes.create({
       name: 'Dark Galaxy',
       imageUrl:
         'https://www.rareseeds.com/assets/1/14/dimregular/dark-galaxy-1.jpg',
-      price: 20.15,
+      price: 20,
       description: 'One taste and you will be lost in space'
     }),
     Tomatoes.create({
       name: 'Lucid Gem',
       imageUrl:
         'https://www.rareseeds.com/assets/1/14/dimregular/brad-gates-anthobicolor1.jpg',
-      price: 17.12,
+      price: 17,
       description: 'Clearly the best'
     }),
     Tomatoes.create({
       name: 'Wagner Blue Green',
       imageUrl:
         'https://www.rareseeds.com/assets/1/14/dimregular/tomato_wagner-blue-green1.jpg',
-      price: 32.15,
+      price: 32,
       description: 'Wagner? Vagner? You decide'
     })
   ])
