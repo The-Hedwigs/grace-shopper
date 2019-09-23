@@ -29,7 +29,7 @@ export class SingleTomato extends React.Component {
               type="button"
               onClick={() => this.props.addToCart(this.props.tomato.id)}
             >
-              🍅
+              🍅➕
             </button>
           </div>
         </div>
