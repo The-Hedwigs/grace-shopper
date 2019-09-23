@@ -34,62 +34,41 @@ router.get('/current', async (req, res, next) => {
   }
 })
 
-// router.post('/current', async (req, res, next) => {
-//   try {
-//     let userId
-//     const tomato = await Tomatoes.findbyPk(req.body.id)
-//     let orderId
-//     let currentOrder = await Order.findOne({
-//       where: {
-//         id: req.session.orderId
-//       },
-//       include: [{model: Tomatoes}]
-//     })
+router.post('/current', async (req, res, next) => {
+  try {
+    const tomato = await Tomatoes.findByPk(req.body.id)
+    const tomorder = await TomOrder.findOne({
+      where: {
+        tomatoId: req.body.id
+      },
+      include: [
+        {
+          model: Tomatoes
+        }
+      ]
+    })
+    let oldQuant = tomorder.quantity
+    if (oldQuant > 1) {
+      await tomorder.update({quantity: oldQuant - 1})
+    } else {
+      await tomorder.destroy()
+    }
 
-//     //check to see if a user is logged in:
-//     if (req.session.passport) {
-//       userId = req.session.passport.user
-//     }
+    const currentOrder = await Order.findOne({
+      where: {
+        id: req.session.orderId
+      },
+      include: [{model: Tomatoes}]
+    })
 
-//     //if there isn't an order in our session, then create a new order
-//     //else, get the currentOrder
-//     if (!currentOrder) {
-//       console.log('NO ORDER ID, creating new order')
-//       currentOrder = await Order.create()
-//       orderId = currentOrder.id
-//       req.session.orderId = orderId
-//       console.log('session:', req.session)
-//     }
-//     //if a user is logged in, then add the user id to that order
-//     if (userId) {
-//       await currentOrder.update({userId: userId})
-//     }
+    let cost = Number(currentOrder.total) - Number(tomato.price)
+    currentOrder.update({total: cost})
 
-//     // check to see if the order-tomato pairing already exists in our database
-//     let order = await TomOrder.findOne({
-//       where: {
-//         orderId: orderId,
-//         tomatoId: req.body.id
-//       }
-//     })
-
-//     //if the pairing doesn't exist, create it
-//     //otherwise, increase the quantity by 1
-//     if (!order) {
-//       order = await currentOrder.addTomato(tomato, {through: {quantity: 1}})
-//     } else {
-//       let oldQuant = order.quantity
-//       await order.update({quantity: oldQuant + 1})
-//     }
-
-//     //update the total on the order:
-//     // let total = order.total + tomato.price
-//     console.log(total)
-//     res.json(order)
-//   } catch (error) {
-//     next(error)
-//   }
-// })
+    res.json(currentOrder)
+  } catch (error) {
+    next(error)
+  }
+})
 
 router.post('/', async (req, res, next) => {
   // Because we've added an orderId to session if the user is logged in and has an unsubmitted order, we want to check the order table to see if there is a matching order already. If there is no orderId on sessions, we will create a new order. If there is a signed in user, the new order will assign the userid on session to the new order. Regardless of if this is a new order or an existing order, we will then add the new tomato/order pairing to the tomorder table
@@ -115,11 +94,11 @@ router.post('/', async (req, res, next) => {
     //if there isn't an order in our session, then create a new order
     //else, get the currentOrder
     if (!currentOrder) {
-      console.log('NO ORDER ID, creating new order')
+      // console.log('NO ORDER ID, creating new order')
       currentOrder = await Order.create()
       orderId = currentOrder.id
       req.session.orderId = orderId
-      console.log('session:', req.session)
+      // console.log('session:', req.session)
     }
     //if a user is logged in, then add the user id to that order
     if (userId) {

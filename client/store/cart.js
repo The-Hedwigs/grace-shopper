@@ -1,12 +1,13 @@
 import axios from 'axios'
+import cart from '../components/cart'
 // import history from '../history'
 
 /**
  * ACTION TYPES
  */
 const GET_ORDER = 'GET_ORDER'
-const ADD_QUANTITY = 'ADD_QUANTITY'
-const SUBTRACT_QUANTITY = 'SUBTRACT_QUANTITY'
+const SUB_QUANTITY = 'ADD_QUANTITY'
+// const SUBTRACT_QUANTITY = 'SUBTRACT_QUANTITY'
 
 /**
  * INITIAL STATE
@@ -21,6 +22,11 @@ const initialCartState = {
  */
 const getOrder = orderData => ({
   type: GET_ORDER,
+  orderData
+})
+
+const subQuantity = orderData => ({
+  type: SUB_QUANTITY,
   orderData
 })
 
@@ -39,17 +45,11 @@ export const getOrderThunk = () => async dispatch => {
   }
 }
 
-export const addQuantThunk = id => async dispatch => {
+export const subQuantThunk = id => async dispatch => {
   try {
-    // console.log('cart store / getOrderThunk / data:', data)
-  } catch (err) {
-    console.error(err)
-  }
-}
-
-export const subtractQuantThunk = id => async dispatch => {
-  try {
-    console.log('to do')
+    const {data} = await axios.post('/api/orders/current', {id})
+    console.log('cart store / addQuantThunk / data:', data)
+    dispatch(subQuantity(data))
   } catch (err) {
     console.error(err)
   }
@@ -61,6 +61,13 @@ export const subtractQuantThunk = id => async dispatch => {
 export default function cartReducer(cartState = initialCartState, action) {
   switch (action.type) {
     case GET_ORDER:
+      return {
+        ...cartState,
+        orderItems: action.orderData.tomatoes,
+        orderInfo: action.orderData
+      }
+    case SUB_QUANTITY:
+      console.log(action.orderData)
       return {
         ...cartState,
         orderItems: action.orderData.tomatoes,

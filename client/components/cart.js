@@ -1,12 +1,13 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import {getOrderThunk} from '../store/cart'
+import {getOrderThunk, subQuantThunk} from '../store/cart'
 import {addToCartThunk} from '../store/tomato'
 
 class Cart extends React.Component {
-  // constructor(props) {
-  //   super(props)
-  // }
+  constructor(props) {
+    super(props)
+    // this.handleSubmit = this.handleSubmit.bind(this)
+  }
 
   //mounting our existing order onto the cart
   componentDidMount() {
@@ -15,13 +16,14 @@ class Cart extends React.Component {
   }
 
   //function to run add quantity thunk
-  handleAdd = id => {
-    this.props.addToCart(id)
+  handleSub = id => {
+    // this.props.addToCart(id)
+    this.props.subQuant(id)
   }
 
-  // //function to run subtract quantity thunk
-  // handleSubtract = id => {
-  //   this.props.subtractQuant(id)
+  // handleSubmit(event) {
+  //   event.preventDefault()
+  //   // this.props.updateOrder(this.state)
   // }
 
   render() {
@@ -45,17 +47,17 @@ class Cart extends React.Component {
                     <p>Quantity: {item.tomorder.quantity}</p>
                   </div>
                   <div className="btn-group btn-block" role="group">
-                    <button
+                    {/* <button
                       type="button"
                       className="btn btn-secondary btn-light"
                       onClick={() => this.handleAdd(item.id)}
                     >
                       Add 🍅
-                    </button>
+                    </button> */}
                     <button
                       type="button"
                       className="btn btn-secondary btn-dark"
-                      onClick={() => this.handleSubtrack(item.id)}
+                      onClick={() => this.handleSub(item.id)}
                     >
                       Remove 🍅
                     </button>
@@ -77,8 +79,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   getOrder: () => dispatch(getOrderThunk()),
-  addToCart: id => dispatch(addToCartThunk(id))
-  // subtractQuant: () => dispatch(subtractQuantThunk())
+  subQuant: id => dispatch(subQuantThunk(id))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Cart)
