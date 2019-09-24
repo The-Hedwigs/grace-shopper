@@ -10,22 +10,18 @@ const Navbar = ({handleClick, isLoggedIn}) => (
     style={{height: 80}}
   >
     <div className="navbar-collapse collapse w-10 order-1 order-md-0 dual-collapse2">
-      <a className="navbar-brand font-italic" href="#">
-        <img
-          style={{height: 80, width: 140}}
-          src="http://www.kuark.org/wp-content/uploads/2016/03/domatesten-elektrik-%C3%BCretimi1.jpg"
-        />
-      </a>
+      <img
+        style={{height: 80, width: 140}}
+        src="http://www.kuark.org/wp-content/uploads/2016/03/domatesten-elektrik-%C3%BCretimi1.jpg"
+      />
     </div>
     <div className="mx-auto order-0 w-auto">
       <ul className="navbar-nav order-md-0">
         <li className="nav-item active ">
-          <a className="nav-link" href="#">
-            <Link className="nav-link  text-muted " to="/tomatoes">
-              Tomatoes 🍅
-            </Link>
-            <span className="sr-only">(current)</span>
-          </a>
+          <Link className="nav-link  text-muted " to="/tomatoes">
+            Tomatoes 🍅
+          </Link>
+          <span className="sr-only">(current)</span>
         </li>
       </ul>
     </div>
