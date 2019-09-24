@@ -8,7 +8,6 @@ router.post('/login', async (req, res, next) => {
     const user = await User.findOne({
       where: {email: req.body.email}
     })
-    console.log('auth.index:', user)
     if (!user) {
       console.log('No such user found:', req.body.email)
       res.status(401).send('Wrong username and/or password')
@@ -16,7 +15,6 @@ router.post('/login', async (req, res, next) => {
       console.log('Incorrect password for user:', req.body.email)
       res.status(401).send('Wrong username and/or password')
     } else {
-      console.log('auth.index:', user)
       if (user.orderInfo) {
         req.session.orderId = user.orderInfo.id
       }
@@ -49,7 +47,6 @@ router.post('/logout', (req, res) => {
 
 router.get('/me', async (req, res) => {
   try {
-    console.log(req.session)
     res.json(req.user)
   } catch (error) {
     next(error)

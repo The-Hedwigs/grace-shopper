@@ -7,7 +7,7 @@ import {setOrderThunk} from '../store/cart'
 
 const Navbar = ({handleClick, isLoggedIn}) => (
   <nav
-    className="navbar navbar-expand-md navbar-light bg-light mt-0 mb-0"
+    className="navbar navbar-expand-sm navbar-light bg-light mt-0 mb-0"
     style={{height: 80}}
   >
     <div className="navbar-collapse collapse w-10 order-1 order-md-0 dual-collapse2">
@@ -20,7 +20,7 @@ const Navbar = ({handleClick, isLoggedIn}) => (
       <ul className="navbar-nav order-md-0">
         <li className="nav-item active ">
           <Link className="nav-link  text-muted " to="/tomatoes">
-            Tomatoes 🍅
+            Tomato 🍅
           </Link>
           <span className="sr-only">(current)</span>
         </li>
