@@ -7,25 +7,17 @@ import {addToCartThunk} from '../store/tomato'
 class Cart extends React.Component {
   constructor(props) {
     super(props)
-    // this.handleSubmit = this.handleSubmit.bind(this)
   }
 
   //mounting our existing order onto the cart
   componentDidMount() {
     this.props.getOrder()
-    console.log('state after mount:', this.props.orderInfo)
   }
 
   //function to run add quantity thunk
   handleSubtract = id => {
-    // this.props.addToCart(id)
     this.props.subtractQuant(id)
   }
-
-  // handleSubmit(event) {
-  //   event.preventDefault()
-  //   // this.props.updateOrder(this.state)
-  // }
 
   render() {
     return (
@@ -46,13 +38,6 @@ class Cart extends React.Component {
                     <p>Quantity: {item.tomorder.quantity}</p>
                   </div>
                   <div className="btn-group btn-block" role="group">
-                    {/* <button
-                      type="button"
-                      className="btn btn-secondary btn-light"
-                      onClick={() => this.handleAdd(item.id)}
-                    >
-                      Add 🍅
-                    </button> */}
                     <button
                       type="button"
                       className="btn btn-secondary btn-dark"

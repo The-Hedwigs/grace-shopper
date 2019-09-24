@@ -49,14 +49,7 @@ router.post('/current', async (req, res, next) => {
         include: [{model: Tomatoes}]
       })
     }
-    console.log('req.session in router.post after if else', req.session)
-
-    //     if (req.session.passport) {
-    //       const user = await User.findByPk(req.session.passport.user)
-    //       console.log('user', user)
-    //       await currentOrder.setUser(user)
-    //     }
-    //     console.log(req.session)
+    // console.log('req.session in router.post after if else', req.session)
     res.json(currentOrder)
   } catch (error) {
     next(error)
@@ -86,7 +79,6 @@ router.put('/current', async (req, res, next) => {
 
     if (!tomorder) {
       tomorder = await currentOrder.addTomato(tomato, {through: {quantity: 1}})
-      // currentOrder.update({total: currentOrder.total + tomato.price})
 
       //if this is the first tomato added, we need to refind currentOrder to get the tomato in so we can add it to the total
       currentOrder = await Order.findOne({
@@ -102,15 +94,6 @@ router.put('/current', async (req, res, next) => {
 
     let cost = Number(currentOrder.total) + Number(tomato.price)
     currentOrder.update({total: cost})
-    console.log(currentOrder.total)
-    // console.log(currentOrder)
-    // //assign total to the total?
-    // //note: issue with updating int vs decimal
-    // let total = 0
-    // currentOrder.tomatoes.forEach(item => {
-    //   total = total + item.price * item.tomorder.quantity
-    // })
-    // await currentOrder.update({total: total})
 
     res.json(currentOrder)
   } catch (error) {
@@ -147,30 +130,9 @@ router.put('/checkout', async (req, res, next) => {
   }
 })
 
-// router.put('/current', async (req, res, next) => {
-//   try {
-//     const tomato = await Tomatoes.findByPk(req.body.id)
-//     const tomorder = await TomOrder.findOne({
-//       where: {
-//         tomatoId: req.body.id
-//       },
-//       include: [
-//         {
-//           model: Tomatoes
-//         }
-//       ]
-//     })
-//     let oldQuant = tomorder.quantity
-//     if (oldQuant > 1) {
-//       await tomorder.update({quantity: oldQuant - 1})
-//     } else {
-//       await tomorder.destroy()
-//     }
-
 router.put('/current/cart', async (req, res, next) => {
   try {
     const tomato = await Tomatoes.findByPk(req.body.id)
-    // console.log('tomato:', tomato)
     const tomorder = await TomOrder.findOne({
       where: {
         tomatoId: req.body.id
@@ -181,20 +143,19 @@ router.put('/current/cart', async (req, res, next) => {
         }
       ]
     })
-    console.log('~~~~~tomorder:~~~~~~', tomorder, '~~~~~tomorder:~~~~~~')
     let oldQuant = tomorder.quantity
-    console.log('old quantity:', oldQuant)
+    // console.log('old quantity:', oldQuant)
     if (oldQuant > 1) {
       await tomorder.update({quantity: oldQuant - 1})
     } else {
       await tomorder.destroy()
     }
 
-    console.log(
-      '~~~~~tomorder after update:~~~~~~',
-      tomorder,
-      '~~~~~tomorder after update:~~~~~~'
-    )
+    // console.log(
+    //   '~~~~~tomorder after update:~~~~~~',
+    //   tomorder,
+    //   '~~~~~tomorder after update:~~~~~~'
+    // )
 
     const currentOrder = await Order.findOne({
       where: {
