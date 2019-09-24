@@ -1,5 +1,4 @@
 import axios from 'axios'
-import cart from '../components/cart'
 // import history from '../history'
 
 /**
@@ -7,6 +6,7 @@ import cart from '../components/cart'
  */
 const GET_ORDER = 'GET_ORDER'
 const SUB_QUANTITY = 'ADD_QUANTITY'
+const SUBMIT_ORDER = 'SUBMIT_ORDER'
 // const SUBTRACT_QUANTITY = 'SUBTRACT_QUANTITY'
 
 /**
@@ -30,6 +30,10 @@ const subQuantity = orderData => ({
   orderData
 })
 
+const submitOrder = orderData => ({
+  type: SUBMIT_ORDER,
+  orderData
+})
 /**
  * THUNK CREATORS
  */
@@ -50,6 +54,15 @@ export const subQuantThunk = id => async dispatch => {
     const {data} = await axios.post('/api/orders/current', {id})
     console.log('cart store / addQuantThunk / data:', data)
     dispatch(subQuantity(data))
+  } catch (err) {
+    console.error(err)
+  }
+}
+
+export const submitOrderThunk = info => async dispatch => {
+  try {
+    const {data} = await axios.put('/api/orders/checkout', info)
+    dispatch(submitOrder(data))
   } catch (err) {
     console.error(err)
   }
