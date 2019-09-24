@@ -2,7 +2,7 @@ import React from 'react'
 import {Link} from 'react-router-dom'
 
 export default function Tomatoes(props) {
-  //console.log('props:', props)
+  console.log('props:', props)
   return (
     <div className="container">
       <div className="row">
@@ -14,10 +14,10 @@ export default function Tomatoes(props) {
               </div>
               <div className="card-body">
                 <Link
-                  className="nav-link text-muted"
+                  className="card-link font-weight-bold text-danger"
                   to={`/tomatoes/${tomato.id}`}
                 >
-                  <h5 className="card-title">{tomato.name}</h5>
+                  {tomato.name}
                 </Link>
                 <div className="card-subtitle mb-2 text-muted">
                   {tomato.description}
