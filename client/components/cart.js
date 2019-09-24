@@ -1,5 +1,6 @@
 import React from 'react'
 import {connect} from 'react-redux'
+import {Link} from 'react-router-dom'
 import {getOrderThunk, subQuantThunk} from '../store/cart'
 import {addToCartThunk} from '../store/tomato'
 
@@ -12,7 +13,7 @@ class Cart extends React.Component {
   //mounting our existing order onto the cart
   componentDidMount() {
     this.props.getOrder()
-    console.log('state after mount:', this.state)
+    console.log('state after mount:', this.props.orderInfo)
   }
 
   //function to run add quantity thunk
@@ -29,8 +30,6 @@ class Cart extends React.Component {
   render() {
     return (
       <div className="container">
-        <h2>Order Total: ${this.props.orderInfo.total}.00</h2>
-        {/* the order total may need to be moved */}
         <div className="row">
           {this.props.orderItems.map(item => (
             <div className="col-md-4" key={item.id}>
@@ -66,6 +65,12 @@ class Cart extends React.Component {
               </div>
             </div>
           ))}
+          <div>
+            Order Total: ${this.props.orderInfo.total}.00
+            <Link to="/checkout" className="nav-link text-muted">
+              <button type="submit">Checkout</button>
+            </Link>
+          </div>
         </div>
       </div>
     )

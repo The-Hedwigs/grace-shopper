@@ -133,6 +133,40 @@ router.get('/current/cart', async (req, res, next) => {
   }
 })
 
+router.put('/checkout', async (req, res, next) => {
+  try {
+    const [numberOfOrders, whichOrders] = await Order.update(req.body, {
+      where: {
+        id: req.session.orderId
+      },
+      returning: true
+    })
+    res.json(whichOrders[0])
+  } catch (err) {
+    next(err)
+  }
+})
+
+// router.put('/current', async (req, res, next) => {
+//   try {
+//     const tomato = await Tomatoes.findByPk(req.body.id)
+//     const tomorder = await TomOrder.findOne({
+//       where: {
+//         tomatoId: req.body.id
+//       },
+//       include: [
+//         {
+//           model: Tomatoes
+//         }
+//       ]
+//     })
+//     let oldQuant = tomorder.quantity
+//     if (oldQuant > 1) {
+//       await tomorder.update({quantity: oldQuant - 1})
+//     } else {
+//       await tomorder.destroy()
+//     }
+
 router.put('/current/cart', async (req, res, next) => {
   try {
     const tomato = await Tomatoes.findByPk(req.body.id)
