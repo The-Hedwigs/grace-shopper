@@ -7,13 +7,7 @@ router.post('/login', async (req, res, next) => {
   try {
     //eager load the order with the user? 10
     const user = await User.findOne({
-      where: {email: req.body.email},
-      include: [
-        {
-          model: Order,
-          where: {submitted: 0}
-        }
-      ]
+      where: {email: req.body.email}
     })
     if (!user) {
       console.log('No such user found:', req.body.email)
