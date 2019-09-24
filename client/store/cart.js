@@ -32,7 +32,7 @@ const getOrder = orderData => ({
   orderData
 })
 
-const subQuantity = orderData => ({
+const subtractQuantity = orderData => ({
   type: SUB_QUANTITY,
   orderData
 })
@@ -64,9 +64,9 @@ export const getOrderThunk = () => async dispatch => {
 
 export const subQuantThunk = id => async dispatch => {
   try {
-    const {data} = await axios.post('/api/orders/current', {id})
-    console.log('cart store / addQuantThunk / data:', data)
-    dispatch(subQuantity(data))
+    const {data} = await axios.put('/api/orders/current/cart', {id})
+    console.log('cart store / subQuantThunk / data:', data)
+    dispatch(subtractQuantity(data))
   } catch (err) {
     console.error(err)
   }
