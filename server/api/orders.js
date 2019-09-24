@@ -110,6 +110,7 @@ router.put('/current', async (req, res, next) => {
   }
 })
 
+
 router.put('/checkout', async (req, res, next) => {
   try {
     const [numberOfOrders, whichOrders] = await Order.update(req.body, {
