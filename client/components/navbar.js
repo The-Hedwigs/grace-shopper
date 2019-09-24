@@ -3,13 +3,12 @@ import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
 import {logout} from '../store'
+import {setOrderThunk} from '../store/cart'
 
 const Navbar = ({handleClick, isLoggedIn}) => (
   <div>
     <nav className="navbar navbar-light bg-light">
-      <h1 className="navbar-brand">
-        tom-a-to <br /> tom-ah-to
-      </h1>
+      <h1 className="navbar-brand">tom-a-to or tom-ah-to?</h1>
       <div className="nav-item active">
         <Link className="nav-link text-muted" to="/tomatoes">
           All Tomatoes
@@ -61,8 +60,9 @@ const mapState = state => {
 
 const mapDispatch = dispatch => {
   return {
-    handleClick() {
-      dispatch(logout())
+    async handleClick() {
+      await dispatch(logout())
+      await dispatch(setOrderThunk())
     }
   }
 }

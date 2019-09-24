@@ -1,4 +1,5 @@
 const router = require('express').Router()
+const User = require('../db/models/user')
 const Order = require('../db/models/order')
 const TomOrder = require('../db/models/tomorder')
 const Tomatoes = require('../db/models/tomatoes')
@@ -49,6 +50,13 @@ router.post('/current', async (req, res, next) => {
       })
     }
     console.log('req.session in router.post after if else', req.session)
+
+    //     if (req.session.passport) {
+    //       const user = await User.findByPk(req.session.passport.user)
+    //       console.log('user', user)
+    //       await currentOrder.setUser(user)
+    //     }
+    //     console.log(req.session)
     res.json(currentOrder)
   } catch (error) {
     next(error)
@@ -110,6 +118,20 @@ router.put('/current', async (req, res, next) => {
   }
 })
 
+//router for current cart depending on if it exists. if nothing is inside, return 404 (TODO!!!!)
+router.get('/current/cart', async (req, res, next) => {
+  try {
+    const order = await Order.findOne({
+      where: {
+        id: req.session.orderId
+      },
+      include: [{model: Tomatoes}]
+    })
+    res.json(order)
+  } catch (error) {
+    next(error)
+  }
+})
 
 router.put('/checkout', async (req, res, next) => {
   try {
@@ -145,21 +167,50 @@ router.put('/checkout', async (req, res, next) => {
 //       await tomorder.destroy()
 //     }
 
-//     const currentOrder = await Order.findOne({
-//       where: {
-//         id: req.session.orderId
-//       },
-//       include: [{model: Tomatoes}]
-//     })
+router.put('/current/cart', async (req, res, next) => {
+  try {
+    const tomato = await Tomatoes.findByPk(req.body.id)
+    // console.log('tomato:', tomato)
+    const tomorder = await TomOrder.findOne({
+      where: {
+        tomatoId: req.body.id
+      },
+      include: [
+        {
+          model: Tomatoes
+        }
+      ]
+    })
+    console.log('~~~~~tomorder:~~~~~~', tomorder, '~~~~~tomorder:~~~~~~')
+    let oldQuant = tomorder.quantity
+    console.log('old quantity:', oldQuant)
+    if (oldQuant > 1) {
+      await tomorder.update({quantity: oldQuant - 1})
+    } else {
+      await tomorder.destroy()
+    }
 
-//     let cost = Number(currentOrder.total) - Number(tomato.price)
-//     currentOrder.update({total: cost})
+    console.log(
+      '~~~~~tomorder after update:~~~~~~',
+      tomorder,
+      '~~~~~tomorder after update:~~~~~~'
+    )
 
-//     res.json(currentOrder)
-//   } catch (error) {
-//     next(error)
-//   }
-// })
+    const currentOrder = await Order.findOne({
+      where: {
+        id: req.session.orderId
+      },
+      include: [{model: Tomatoes}]
+    })
+
+    let cost = Number(currentOrder.total) - Number(tomato.price)
+    currentOrder.update({total: cost})
+
+    res.json(currentOrder)
+  } catch (error) {
+    next(error)
+  }
+})
 
 // router.post('/', async (req, res, next) => {
 //   // Because we've added an orderId to session if the user is logged in and has an unsubmitted order, we want to check the order table to see if there is a matching order already. If there is no orderId on sessions, we will create a new order. If there is a signed in user, the new order will assign the userid on session to the new order. Regardless of if this is a new order or an existing order, we will then add the new tomato/order pairing to the tomorder table
