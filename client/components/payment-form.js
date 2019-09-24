@@ -1,7 +1,7 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import PropTypes from 'prop-types'
-import {updatepref} from '../store'
+import {updatepref, submitOrderThunk} from '../store'
 
 const PaymentForm = props => {
   const {name, handleSubmit, displayName, error, isLoggedIn} = props
@@ -85,27 +85,6 @@ const PaymentForm = props => {
           <div>Payment Information</div>
           <br />
           <div>
-            <label htmlFor="cardnumber">
-              <small>Debit/Credit Card</small>
-            </label>
-            <input name="cardnumber" type="text" />
-          </div>
-          <br />
-          <div>
-            <label htmlFor="expdate">
-              <small>Expiration Date</small>
-            </label>
-            <input name="expdate" type="text" />
-          </div>
-          <br />
-          <div>
-            <label htmlFor="cvc">
-              <small>CVC</small>
-            </label>
-            <input name="cvc" type="text" />
-          </div>
-          <br />
-          <div>
             <button type="submit">{displayName}</button>
           </div>
         </div>
@@ -126,9 +105,9 @@ const mapPreferences = state => {
 
 const mapOrder = state => {
   return {
-    name: 'checkout',
-    displayName: 'Checkout'
-    //error: state.order.error
+    name: 'submitOrder',
+    displayName: 'Submit Order',
+    cart: state.cartState.orderInfo
   }
 }
 
@@ -136,8 +115,6 @@ const mapDispatchPref = dispatch => {
   return {
     handleSubmit(evt, user) {
       evt.preventDefault()
-      const formName = evt.target.name
-      const email = evt.target.email ? evt.target.email.value : user.email
       const shippingAddress = (
         evt.target.sAddressOne.value +
         ' ' +
@@ -156,14 +133,9 @@ const mapDispatchPref = dispatch => {
         ' ' +
         evt.target.bZip.value
       ).replace(/\s+/g, ' ')
-      const card =
-        evt.target.cardnumber.value +
-        evt.target.expdate.value +
-        evt.target.cvc.value
       const info = {
         shippingAddress: shippingAddress,
-        billingAddress: billingAddress,
-        card: card
+        billingAddress: billingAddress
       }
       dispatch(updatepref(user.id, info))
     }
@@ -195,10 +167,11 @@ const mapDispatchCheck = dispatch => {
       ).replace(/\s+/g, ' ')
       const info = {
         email: email,
-        shippingAddress: shippingAddress,
-        billingAddress: billingAddress
+        shipping: shippingAddress,
+        billing: billingAddress,
+        submitted: true
       }
-      //dispatch(updatepref(user.id, info))
+      dispatch(submitOrderThunk(info))
     }
   }
 }

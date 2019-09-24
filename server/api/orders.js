@@ -133,6 +133,21 @@ router.put('/current', async (req, res, next) => {
   }
 })
 
+
+router.put('/checkout', async (req, res, next) => {
+  try {
+    const [numberOfOrders, whichOrders] = await Order.update(req.body, {
+      where: {
+        id: req.session.orderId
+      },
+      returning: true
+    })
+    res.json(whichOrders[0])
+  } catch (err) {
+    next(err)
+  }
+})
+
 // router.put('/current', async (req, res, next) => {
 //   try {
 //     const tomato = await Tomatoes.findByPk(req.body.id)

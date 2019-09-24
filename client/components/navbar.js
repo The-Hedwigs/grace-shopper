@@ -5,6 +5,7 @@ import {Link} from 'react-router-dom'
 import {logout} from '../store'
 
 const Navbar = ({handleClick, isLoggedIn}) => (
+
   <nav
     className="navbar navbar-expand-md navbar-light bg-light mt-0 mb-0"
     style={{height: 80}}
