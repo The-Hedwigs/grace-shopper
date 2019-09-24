@@ -6,6 +6,9 @@ const TomOrder = db.define('tomorder', {
   quantity: {
     type: Sequelize.INTEGER
   }
+  // total: {
+  //   type: Sequelize.INTEGER
+  // }
 })
 
 module.exports = TomOrder

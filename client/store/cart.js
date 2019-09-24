@@ -47,7 +47,6 @@ const submitOrder = orderData => ({
 
 export const setOrderThunk = () => async dispatch => {
   try {
-    console.log('currently in set order thunk')
     const {data} = await axios.post('/api/orders/current')
     dispatch(setOrder(data))
   } catch (error) {
@@ -59,7 +58,6 @@ export const getOrderThunk = () => async dispatch => {
   try {
     //thunk pulls data of current cart
     const {data} = await axios.get(`/api/orders/current`)
-    // console.log('cart store / getOrderThunk / data:', data)
     dispatch(getOrder(data))
   } catch (err) {
     console.error(err)
@@ -69,7 +67,6 @@ export const getOrderThunk = () => async dispatch => {
 export const subQuantThunk = id => async dispatch => {
   try {
     const {data} = await axios.put('/api/orders/current/cart', {id})
-    console.log('cart store / subQuantThunk / data:', data)
     dispatch(subtractQuantity(data))
   } catch (err) {
     console.error(err)
@@ -91,7 +88,6 @@ export const submitOrderThunk = info => async dispatch => {
 export default function cartReducer(cartState = initialCartState, action) {
   switch (action.type) {
     case SET_ORDER:
-      console.log('cart//store//setOrder data: ', action.orderData)
       return {
         ...cartState,
         orderItems: [],
@@ -104,7 +100,6 @@ export default function cartReducer(cartState = initialCartState, action) {
         orderInfo: action.orderData
       }
     case SUB_QUANTITY:
-      console.log(action.orderData)
       return {
         ...cartState,
         orderItems: action.orderData.tomatoes,

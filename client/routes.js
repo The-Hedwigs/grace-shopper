@@ -38,7 +38,6 @@ class Routes extends Component {
           )}
         />
         <Route path="/cart" component={Cart} />
-        {/* <Route path="/checkout" component={Checkout} /> */}
         <Route path="/login" component={Login} />
         <Route path="/signup" component={Signup} />
         {isLoggedIn && (

@@ -52,7 +52,6 @@ export const getSingleTomatoThunk = tomatoId => async dispatch => {
 
 export const addToCartThunk = id => async dispatch => {
   try {
-    // console.log('thunk id:', id)
     const {data} = await axios.put('/api/orders/current', {id})
     dispatch(addTomato(data))
   } catch (error) {
