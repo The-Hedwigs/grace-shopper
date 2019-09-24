@@ -4,9 +4,11 @@ import axios from 'axios'
 /**
  * ACTION TYPES
  */
+const SET_ORDER = 'SET_ORDER'
 const GET_ORDER = 'GET_ORDER'
 const SUB_QUANTITY = 'ADD_QUANTITY'
 const SUBMIT_ORDER = 'SUBMIT_ORDER'
+
 // const SUBTRACT_QUANTITY = 'SUBTRACT_QUANTITY'
 
 /**
@@ -20,6 +22,11 @@ const initialCartState = {
 /**
  * ACTION CREATORS
  */
+const setOrder = orderData => ({
+  type: SET_ORDER,
+  orderData
+})
+
 const getOrder = orderData => ({
   type: GET_ORDER,
   orderData
@@ -37,6 +44,16 @@ const submitOrder = orderData => ({
 /**
  * THUNK CREATORS
  */
+
+export const setOrderThunk = () => async dispatch => {
+  try {
+    console.log('currently in set order thunk')
+    const {data} = await axios.post('/api/orders/current')
+    dispatch(setOrder(data))
+  } catch (error) {
+    console.error(err)
+  }
+}
 
 export const getOrderThunk = () => async dispatch => {
   try {
@@ -73,6 +90,13 @@ export const submitOrderThunk = info => async dispatch => {
  */
 export default function cartReducer(cartState = initialCartState, action) {
   switch (action.type) {
+    case SET_ORDER:
+      console.log('cart//store//setOrder data: ', action.orderData)
+      return {
+        ...cartState,
+        orderItems: [],
+        orderInfo: action.orderData
+      }
     case GET_ORDER:
       return {
         ...cartState,
