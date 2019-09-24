@@ -6,7 +6,7 @@ import {logout} from '../store'
 
 const Navbar = ({handleClick, isLoggedIn}) => (
   <nav
-    className="navbar navbar-expand-md navbar-light bg-light"
+    className="navbar navbar-expand-md navbar-light bg-light mt-0 mb-0"
     style={{height: 80}}
   >
     <div className="navbar-collapse collapse w-10 order-1 order-md-0 dual-collapse2">
@@ -29,15 +29,16 @@ const Navbar = ({handleClick, isLoggedIn}) => (
         </li>
       </ul>
     </div>
-    <div className="navbar-collapse collapse w-10 order-3 dual-collapse2">
-      <ul className="navbar-nav ml-auto">
+    <div className="navbar-collapse collapse w-10 h-100 order-3 dual-collapse2">
+      <ul className="navbar-nav ml-auto h-100">
         <li className="nav-item ">
-          <a className="nav-link" href="#">
-            <Link className="nav-link text-muted" to="/cart">
-              {' '}
-              🛒{' '}
-            </Link>
-          </a>
+          <Link
+            className="nav-link text-muted margin-auto pt-0 pb-0 h-100 align-self-center"
+            to="/cart"
+          >
+            {' '}
+            🛒{' '}
+          </Link>
         </li>
       </ul>
     </div>
