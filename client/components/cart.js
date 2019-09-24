@@ -17,9 +17,9 @@ class Cart extends React.Component {
   }
 
   //function to run add quantity thunk
-  handleSub = id => {
+  handleSubtract = id => {
     // this.props.addToCart(id)
-    this.props.subQuant(id)
+    this.props.subtractQuant(id)
   }
 
   // handleSubmit(event) {
@@ -56,7 +56,7 @@ class Cart extends React.Component {
                     <button
                       type="button"
                       className="btn btn-secondary btn-dark"
-                      onClick={() => this.handleSub(item.id)}
+                      onClick={() => this.handleSubtract(item.id)}
                     >
                       Remove 🍅
                     </button>
@@ -84,7 +84,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   getOrder: () => dispatch(getOrderThunk()),
-  subQuant: id => dispatch(subQuantThunk(id))
+  subtractQuant: id => dispatch(subQuantThunk(id))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Cart)
