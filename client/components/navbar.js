@@ -39,10 +39,25 @@ const Navbar = ({handleClick, isLoggedIn}) => (
             {' '}
             🛒{' '}
           </Link>
-        </li>
-      </ul>
-    </div>
-  </nav>
+        </div>
+      ) : (
+        <div>
+          <div className="nav-item active text-right">
+            {/* The navbar will show these links before you log in */}
+            <Link className="nav-link text-muted" to="/login">
+              Login
+            </Link>
+          </div>
+          <div className="nav-item active text-right">
+            <Link className="nav-link text-muted" to="/signup">
+              Sign Up
+            </Link>
+          </div>
+        </div>
+      )}
+    </nav>
+    <hr />
+  </div>
 )
 
 /**
