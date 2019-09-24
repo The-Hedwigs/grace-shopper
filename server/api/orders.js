@@ -1,4 +1,5 @@
 const router = require('express').Router()
+const User = require('../db/models/user')
 const Order = require('../db/models/order')
 const TomOrder = require('../db/models/tomorder')
 const Tomatoes = require('../db/models/tomatoes')
@@ -49,6 +50,13 @@ router.post('/current', async (req, res, next) => {
       })
     }
     console.log('req.session in router.post after if else', req.session)
+
+    if (req.session.passport) {
+      const user = await User.findByPk(req.session.passport.user)
+      console.log('user', user)
+      await currentOrder.setUser(user)
+    }
+    console.log(req.session)
     res.json(currentOrder)
   } catch (error) {
     next(error)
