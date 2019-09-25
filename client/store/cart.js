@@ -6,7 +6,7 @@ import history from '../history'
  */
 const SET_ORDER = 'SET_ORDER'
 const GET_ORDER = 'GET_ORDER'
-const SUB_QUANTITY = 'ADD_QUANTITY'
+const SUB_QUANTITY = 'SUB_QUANTITY'
 const SUBMIT_ORDER = 'SUBMIT_ORDER'
 
 // const SUBTRACT_QUANTITY = 'SUBTRACT_QUANTITY'
