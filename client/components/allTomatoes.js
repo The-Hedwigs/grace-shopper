@@ -16,7 +16,6 @@ export class AllTomatoes extends React.Component {
   }
 
   handleClick(id) {
-    console.log('this is the id', id)
     this.props.addToCart(id)
     ToastsStore.success('Tomato added to cart! Yum!')
   }

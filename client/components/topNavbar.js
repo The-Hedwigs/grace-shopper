@@ -21,7 +21,7 @@ const TopNavbar = ({handleClick, isLoggedIn}) => (
           <li className="nav-item h-100">
             <Link
               className="nav-link h-100 mt-0 mb-0 pt-0 pb-0"
-              to="/accountSettings"
+              to="/updatepreferences"
             >
               {' '}
               My Account{' '}
