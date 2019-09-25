@@ -24,7 +24,7 @@ export class AllTomatoes extends React.Component {
     return (
       <div className="container">
         <ToastsContainer className="toasts" store={ToastsStore} />
-        <h1 className="display-4 text-center">Our Tomatoes</h1>
+        <h1 className="display-4 text-center">Our Farm</h1>
         {this.props.tomatoes ? (
           <div className="container">
             <div className="row">
