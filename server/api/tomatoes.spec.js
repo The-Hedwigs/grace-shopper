@@ -27,4 +27,23 @@ describe('Tomatoes routes', () => {
       expect(res.body[0].name).to.be.equal('Domates')
     })
   })
+  describe('/api/tomatoes/:tomatoId', () => {
+    const testTomato = {
+      name: 'testTomato'
+    }
+    let testTom
+    beforeEach(async () => {
+      await db.sync({force: true})
+      testTom = await Tomatoes.create(testTomato)
+    })
+    it('Gets a single tomato by ID', async () => {
+      let id = testTom.id
+      const res = await request(app)
+        .get(`/api/tomatoes/${id}`)
+        .expect(200)
+
+      expect(res.body).to.be.an('object')
+      expect(res.body.id).to.equal(testTom.id)
+    })
+  })
 })
