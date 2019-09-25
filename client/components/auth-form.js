@@ -9,26 +9,37 @@ import {auth} from '../store'
 const AuthForm = props => {
   const {name, displayName, handleSubmit, error} = props
   return (
-    <div>
-      <form onSubmit={handleSubmit} name={name}>
-        <div>
-          <label htmlFor="email">
-            <small>Email</small>
-          </label>
-          <input name="email" type="text" />
+    <div className="container">
+      <form
+        className="row justify-content-center"
+        onSubmit={handleSubmit}
+        name={name}
+      >
+        <div className="form-row">
+          <div className="form-group row">
+            <label className="col-auto col-form-label" htmlFor="email">
+              Email
+            </label>
+            <input className="col-sm-8" name="email" type="text" />
+          </div>
+
+          <div className="form-group row">
+            <label className="col-auto col-form-label" htmlFor="password">
+              Password
+            </label>
+            <input className="col-auto" name="password" type="password" />
+          </div>
+          <div className="col">
+            <button className="btn btn-outline-dark btn-block" type="submit">
+              {displayName}
+            </button>
+          </div>
+          {error && error.response && <div> {error.response.data} </div>}
         </div>
-        <div>
-          <label htmlFor="password">
-            <small>Password</small>
-          </label>
-          <input name="password" type="password" />
-        </div>
-        <div>
-          <button type="submit">{displayName}</button>
-        </div>
-        {error && error.response && <div> {error.response.data} </div>}
       </form>
-      <a href="/auth/google">{displayName} with Google</a>
+      <div className="row justify-content-center">
+        <a href="/auth/google">{displayName} with Google</a>
+      </div>
     </div>
   )
 }
