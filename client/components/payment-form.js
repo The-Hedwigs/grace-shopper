@@ -82,8 +82,6 @@ const PaymentForm = props => {
             <input name="bZip" type="text" pattern="\d{5}([ \-]\d{4})?" />
           </div>
           <br />
-          <div>Payment Information</div>
-          <br />
           <div>
             <button type="submit">{displayName}</button>
           </div>
