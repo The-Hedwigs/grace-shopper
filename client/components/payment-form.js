@@ -39,6 +39,13 @@ const PaymentForm = props => {
           </div>
           <br />
           <div>
+            <label htmlFor="sCity">
+              <small>City</small>
+            </label>
+            <input name="sCity" type="text" />
+          </div>
+          <br />
+          <div>
             <label htmlFor="sState">
               <small>State</small>
             </label>
@@ -66,6 +73,13 @@ const PaymentForm = props => {
               <small>Address line 2</small>
             </label>
             <input name="bAddressTwo" type="text" />
+          </div>
+          <br />
+          <div>
+            <label htmlFor="bCity">
+              <small>City</small>
+            </label>
+            <input name="bCity" type="text" />
           </div>
           <br />
           <div>
@@ -118,6 +132,8 @@ const mapDispatchPref = dispatch => {
         ' ' +
         evt.target.sAddressTwo.value +
         ' ' +
+        evt.target.sCity.value +
+        ' ' +
         evt.target.sState.value +
         ' ' +
         evt.target.sZip.value
@@ -126,6 +142,8 @@ const mapDispatchPref = dispatch => {
         evt.target.bAddressOne.value +
         ' ' +
         evt.target.bAddressTwo.value +
+        ' ' +
+        evt.target.bCity.value +
         ' ' +
         evt.target.bState.value +
         ' ' +
