@@ -9,12 +9,12 @@ describe('Tomatoes model', () => {
     it('has a `name`,`imageUrl` and `price`', async () => {
       const tomatoesTest = await Tomatoes.create({
         name: 'Domates',
-        imageUrl: 'a beatiful tomato pic',
+        imageUrl: 'a beautiful tomato pic',
         price: 2.5
       })
 
       expect(tomatoesTest.name).to.equal('Domates')
-      expect(tomatoesTest.imageUrl).to.equal('a beatiful tomato pic')
+      expect(tomatoesTest.imageUrl).to.equal('a beautiful tomato pic')
 
       expect(tomatoesTest.price).to.equal('2.50')
     })
@@ -25,8 +25,8 @@ describe('Tomatoes model', () => {
       })
 
       expect(tomatoesTest.name).to.equal('Domates')
-      expect(tomatoesTest.imageUrl).to.equal('some image')
-      expect(tomatoesTest.price).to.equal('0.00')
+      expect(tomatoesTest.imageUrl).to.equal('a beautiful tomato pic')
+      expect(tomatoesTest.price).to.equal('2.50')
     })
   })
 })
