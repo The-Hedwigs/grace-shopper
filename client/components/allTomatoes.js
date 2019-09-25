@@ -16,7 +16,7 @@ export class AllTomatoes extends React.Component {
   render() {
     return (
       <div className="container">
-        <h1 className="display-4 text-center">Our Tomatoes</h1>
+        <h1 className="display-5 text-center">Our Tomatoes</h1>
         {this.props.tomatoes ? (
           <Tomatoes
             tomatoes={this.props.tomatoes}

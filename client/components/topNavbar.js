@@ -3,35 +3,28 @@ import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
 import {logout} from '../store'
+import {setOrderThunk} from '../store/cart'
 
 const TopNavbar = ({handleClick, isLoggedIn}) => (
   <nav
-    className="navbar navbar-expand-md navbar-dark bg-dark mt-0 mb-0 pt-0 pb-0"
-    style={{height: 40}}
+    className="navbar navbar-expand-md navbar-dark bg-dark"
+    style={{height: 50}}
   >
-    <h6 className="nav-item text-light ">
-      Free shipping if you have the spicy boy in your cart!
-    </h6>
-    <div
-      className="collapse navbar-collapse justify-content-end h-100"
-      id="navbarNav"
-    >
-      <ul className="navbar-nav h-100">
-        {isLoggedIn ? (
-          <li className="nav-item h-100">
-            <Link
-              className="nav-link h-100 mt-0 mb-0 pt-0 pb-0"
-              to="/accountSettings"
-            >
-              {' '}
-              My Account{' '}
+    <div className="collapse navbar-collapse" id="navbarNav">
+      <div className="mx-auto order-0 w-auto">
+        <ul className="navbar-nav order-md-0">
+          <li className="nav-item active ">
+            <Link className="nav-link  text-success " to="/tomatoes">
+              🍅
             </Link>
           </li>
-        ) : null}
+        </ul>
+      </div>
+      <ul className="navbar-nav justify-content-end">
         {isLoggedIn ? (
-          <li className="nav-item h-100">
+          <li className="nav-item">
             <a
-              className="text-muted h-100 mt-0 mb-0 pt-0 pb-0"
+              className="text-white margin-auto pt-0 pb-0 align-self-center"
               href="#"
               onClick={() => handleClick()}
             >
@@ -40,9 +33,9 @@ const TopNavbar = ({handleClick, isLoggedIn}) => (
           </li>
         ) : null}
         {!isLoggedIn ? (
-          <li className="nav-item h-100">
+          <li className="nav-item">
             <Link
-              className="nav-link text-muted h-100 mt-0 mb-0 pt-0 pb-0"
+              className="nav-link text-white margin-auto pt-0 pb-0 align-self-center"
               to="/login"
             >
               Login
@@ -50,9 +43,9 @@ const TopNavbar = ({handleClick, isLoggedIn}) => (
           </li>
         ) : null}
         {!isLoggedIn ? (
-          <li className="nav-item h-100">
+          <li className="nav-item">
             <Link
-              className="nav-link text-muted h-100 mt-0 mb-0 pt-0 pb-0"
+              className="nav-link text-white margin-auto pt-0 pb-0 align-self-center"
               to="/signup"
             >
               Sign Up
@@ -60,6 +53,19 @@ const TopNavbar = ({handleClick, isLoggedIn}) => (
           </li>
         ) : null}
       </ul>
+      <div className="navbar-collapse collapse w-10 order-3 dual-collapse2">
+        <ul className="navbar-nav ml-auto">
+          <li className="nav-item ">
+            <Link
+              className="nav-link text-white margin-auto pt-0 pb-0 align-self-center"
+              to="/cart"
+            >
+              {' '}
+              🛒{' '}
+            </Link>
+          </li>
+        </ul>
+      </div>
     </div>
   </nav>
 )
@@ -71,8 +77,9 @@ const mapState = state => {
 
 const mapDispatch = dispatch => {
   return {
-    handleClick() {
-      dispatch(logout())
+    async handleClick() {
+      await dispatch(logout())
+      await dispatch(setOrderThunk())
     }
   }
 }
