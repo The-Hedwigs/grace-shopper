@@ -1,5 +1,5 @@
 import axios from 'axios'
-// import history from '../history'
+import history from '../history'
 
 /**
  * ACTION TYPES
@@ -41,6 +41,7 @@ const submitOrder = orderData => ({
   type: SUBMIT_ORDER,
   orderData
 })
+
 /**
  * THUNK CREATORS
  */
@@ -77,6 +78,17 @@ export const submitOrderThunk = info => async dispatch => {
   try {
     const {data} = await axios.put('/api/orders/checkout', info)
     dispatch(submitOrder(data))
+    history.push('/paymentinfo')
+  } catch (err) {
+    console.error(err)
+  }
+}
+
+export const clearOrderThunk = () => async dispatch => {
+  try {
+    await axios.delete('/api/orders/current')
+    const {data} = await axios.post('/api/orders/current')
+    dispatch(setOrder(data))
   } catch (err) {
     console.error(err)
   }

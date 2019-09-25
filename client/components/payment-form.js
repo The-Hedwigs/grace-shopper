@@ -82,8 +82,6 @@ const PaymentForm = props => {
             <input name="bZip" type="text" pattern="\d{5}([ \-]\d{4})?" />
           </div>
           <br />
-          <div>Payment Information</div>
-          <br />
           <div>
             <button type="submit">{displayName}</button>
           </div>
@@ -105,8 +103,8 @@ const mapPreferences = state => {
 
 const mapOrder = state => {
   return {
-    name: 'submitOrder',
-    displayName: 'Submit Order',
+    name: 'continueOrder',
+    displayName: 'Continue',
     cart: state.cartState.orderInfo
   }
 }
@@ -169,7 +167,7 @@ const mapDispatchCheck = dispatch => {
         email: email,
         shipping: shippingAddress,
         billing: billingAddress,
-        submitted: true
+        userId: user.id || null
       }
       dispatch(submitOrderThunk(info))
     }

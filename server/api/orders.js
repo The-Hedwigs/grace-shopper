@@ -185,4 +185,14 @@ router.put('/checkout', async (req, res, next) => {
   }
 })
 
+//clear cart route
+router.delete('/current', async (req, res, next) => {
+  try {
+    req.session.orderId = null
+    res.send('order has been reset')
+  } catch (err) {
+    next(err)
+  }
+})
+
 module.exports = router

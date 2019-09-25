@@ -13,6 +13,7 @@ import {me} from './store'
 import AllTomatoes from './components/allTomatoes'
 import SingleTomato from './components/singleTomato'
 import Cart from './components/cart'
+import DropIn from './components/DropIn'
 import {setOrderThunk} from './store/cart'
 
 /**
@@ -37,9 +38,10 @@ class Routes extends Component {
             <Checkout {...props} isLoggedIn={isLoggedIn} user={user} />
           )}
         />
-        <Route path="/cart" component={Cart} />
-        <Route path="/login" component={Login} />
-        <Route path="/signup" component={Signup} />
+        <Route exact path="/paymentinfo" component={DropIn} />
+        <Route exact path="/cart" component={Cart} />
+        <Route exact path="/login" component={Login} />
+        <Route exact path="/signup" component={Signup} />
         {isLoggedIn && (
           <Switch>
             {/* Routes placed here are only available after logging in */}
